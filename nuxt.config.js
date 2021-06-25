@@ -1,7 +1,7 @@
 export default {
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
-        title: 'itinerary',
+        title: 'Itinerary',
         htmlAttrs: {
             lang: 'en'
         },
@@ -37,5 +37,11 @@ export default {
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {
+    },
+
+    loading: {
+        color: 'white',
+        height: '3px',
+        throttle: 300
     }
 }

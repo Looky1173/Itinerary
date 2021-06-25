@@ -1,39 +1,35 @@
 <template>
     <div class="Footer">
-        <div class="footer-container">
-            <div class="links">
-                <dl>
-                    <dt>About</dt>
-                    <dd>
-                        <NuxtLink to="/about">About Itinerary</NuxtLink>
-                    </dd>
-                    <dd>
-                        <NuxtLink to="/developers">For Developers</NuxtLink>
-                    </dd>
-                </dl>
-                <dl>
-                    <dt>Resources</dt>
-                    <dd>
-                        <NuxtLink to="/faq">FAQ</NuxtLink>
-                    </dd>
-                    <dd>
-                        <a href="https://github.com/Looky1173/Itinerary" rel="noopener noreferrer" target="_blank">GitHub</a>
-                    </dd>
-                    <dd>
-                        <a href="https://scratch.mit.edu/users/SuperScratcher_1234/#comments" rel="noopener noreferrer" target="_blank">Feedback</a>
-                    </dd>
-                </dl>
-                <dl>
-                    <dt>Legal</dt>
-                    <dd>
-                        <NuxtLink to="/terms">Terms of Use</NuxtLink>
-                    </dd>
-                    <dd>
-                        <NuxtLink to="/privacy">Privacy Policy</NuxtLink>
-                    </dd>
-                </dl>
-            </div>
-        </div>
+            <ul>
+                <li>About</li>
+                <li>
+                    <NuxtLink to="/about">About Itinerary</NuxtLink>
+                </li>
+                <li>
+                    <NuxtLink to="/developers">For Developers</NuxtLink>
+                </li>
+            </ul>
+            <ul>
+                <li>Resources</li>
+                <li>
+                    <NuxtLink to="/faq">FAQ</NuxtLink>
+                </li>
+                <li>
+                    <a href="https://github.com/Looky1173/Itinerary" rel="noopener noreferrer" target="_blank">GitHub</a>
+                </li>
+                <li>
+                    <a href="https://scratch.mit.edu/users/SuperScratcher_1234/#comments" rel="noopener noreferrer" target="_blank">Feedback</a>
+                </li>
+            </ul>
+            <ul>
+                <li>Legal</li>
+                <li>
+                    <NuxtLink to="/terms">Terms of Use</NuxtLink>
+                </li>
+                <li>
+                    <NuxtLink to="/privacy">Privacy Policy</NuxtLink>
+                </li>
+            </ul>
     </div>
 </template>
 
@@ -43,41 +39,27 @@
 
 <style scoped>
     .Footer {
-        display: block;
-        background-color: #f2f2f2;
-        padding: 10px 0;
-        color: var(--secondary-color-light);
-        font-size: 0.85rem;
-    }
-
-    .footer-container {
-        margin: 0 5vw;
-    }
-
-    .links {
         display: flex;
-        text-align: center;
         flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: space-between;
+        justify-content: center;
+        padding: 10px;
+        font-size: 12px;
     }
 
-    .links dl {
-        display: inline-block;
-        vertical-align: top;
-        text-align: left;
-        font-size: 1.25vw;
+    ul {
+        padding: 0 10vw;
     }
 
-    .links dt {
-        display: block;
-        font-weight: 600;
+    ul li {
+        text-decoration: none;
+        list-style: none;
+        padding: 3px 15px;
+        color: inherit;
+    }
+
+    ul li:first-child {
+        font-weight: 700;
         color: var(--secondary-color-very-dark);
-        margin-bottom: 8px;
-    }
-
-    .links dd a {
-        font-weight: 400;
     }
 
     a:link,
@@ -89,5 +71,14 @@
 
     a:hover {
         color: var(--primary-color);
+    }
+
+    @media only screen and (max-width: 720px) {
+        .Footer {
+            flex-direction: column;
+        }
+        ul {
+            padding: 0 1rem;
+        }
     }
 </style>

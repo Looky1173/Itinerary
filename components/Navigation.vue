@@ -44,7 +44,13 @@
         color: white;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         box-shadow: 0 0 3px rgb(0 0 0 / 25%);
+        overflow: auto;
+        scrollbar-width: none;
         z-index: 10;
+    }
+
+    .Navigation::-webkit-scrollbar {
+        display: none;
     }
 
     .navigation-general {
