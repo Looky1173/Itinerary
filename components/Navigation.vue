@@ -18,13 +18,34 @@
             </div>
         </div>
         <div class="navigation-account">
-            <NuxtLink to="/account" class="navigation-item hoverable link"> Account </NuxtLink>
+            <div class="account" v-if="$auth.loggedIn()">
+                <NuxtLink to="/dashboard">
+                    <div class="navigation-item hoverable link"><img :src="`${backendURL}/api/user/${$auth.user().name}/picture`" class="profile-picture" />{{ $auth.user().name }}</div>
+                </NuxtLink>
+                <div class="navigation-divider"></div>
+                <a @click="logout()" class="navigation-item hoverable link">Logout</a>
+            </div>
+            <NuxtLink to="/login" class="navigation-item hoverable link" v-else>Login</NuxtLink>
         </div>
     </div>
 </template>
 
 <script>
-    export default {}
+    export default {
+        data() {
+            return {
+                backendURL: process.env.backendURL
+            }
+        },
+        methods: {
+            async logout() {
+                await this.$store.dispatch('auth/logout')
+                this.$router.push({
+                    path: '/'
+                })
+            }
+        }
+    }
 </script>
 
 <style scoped>
@@ -40,7 +61,7 @@
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         font-size: 0.75rem;
         font-weight: bold;
-        background-color: var(--primary-color);
+        background-color: var(--header-background);
         color: white;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         box-shadow: 0 0 3px rgb(0 0 0 / 25%);
@@ -126,6 +147,23 @@
 
     .navigation-button > .button-content {
         white-space: nowrap;
-        color: var(--primary-color);
+        color: var(--header-background);
+    }
+
+    .profile-picture {
+        border-radius: 5px;
+        width: 24px;
+        height: 24px;
+        margin-right: 5px;
+        aspect-ratio: auto 24 / 24;
+    }
+
+    .account {
+        display: flex;
+        align-items: center;
+    }
+
+    .account a {
+        text-decoration: none;
     }
 </style>

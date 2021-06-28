@@ -22,13 +22,20 @@ export default {
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [
+        '~/plugins/auth.js',
+        { src: '~/plugins/vue-good-table', ssr: false }
     ],
+
+    env: {
+        backendURL: process.env.BACKEND_URL || 'http://localhost:8081'
+    },
 
     // Auto import components: https://go.nuxtjs.dev/config-components
     components: true,
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
     buildModules: [
+        '@nuxtjs/color-mode'
     ],
 
     // Modules: https://go.nuxtjs.dev/config-modules
