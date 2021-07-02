@@ -20,5 +20,6 @@ export default async function ({ $auth, redirect, req, store }) {
         })
         .catch((err) => {
             console.warn(err);
+            return redirect('/');
         })
 }
