@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    export default {}
+    export default {};
 </script>
 
 <style scoped>
@@ -42,7 +42,6 @@
         padding: 0;
         justify-content: space-between;
         background-color: white;
-        margin-bottom: 40px;
         background-position: center;
         background-size: cover;
     }

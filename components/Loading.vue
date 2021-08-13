@@ -1,9 +1,9 @@
 <template>
-    <div class="Loading">
+    <div :class="`Loading ${type == 'notification' ? 'inside-notification' : ''}`">
         <div class="icon">
             <div class="spinner"></div>
         </div>
-        <div class="message">
+        <div class="message" v-if="type != 'notification'">
             <span>{{ message || 'Loading...' }}</span>
         </div>
     </div>
@@ -11,8 +11,8 @@
 
 <script>
     export default {
-        props: ['message']
-    }
+        props: ['message', 'type']
+    };
 </script>
 
 <style scoped>
@@ -26,12 +26,24 @@
         margin: 2rem 0;
     }
 
+    .inside-notification {
+        flex: 0;
+        justify-content: start;
+        padding: 0 1rem 0 0;
+        margin: 0;
+        height: auto;
+    }
+
     .icon {
         font-size: 16px;
         min-width: 1.25rem;
         min-height: 1.25rem;
         display: flex;
         padding-right: 1rem;
+    }
+
+    .inside-notification .icon {
+        padding: 0;
     }
 
     .spinner {
@@ -45,6 +57,7 @@
         border-color: var(--background);
         box-sizing: content-box;
     }
+
     .spinner::before,
     .spinner::after {
         width: 1.25rem;
@@ -54,6 +67,7 @@
         display: block;
         box-sizing: content-box;
     }
+
     .spinner::after {
         position: absolute;
         top: -0.1875rem;
@@ -62,11 +76,12 @@
         border-top-color: var(--text);
         animation: spin 1.5s cubic-bezier(0.4, 0.1, 0.4, 1) infinite;
     }
-    .spinner.spinner-success {
-        border-color: hsla(163, 85%, 40%, 0.35);
+
+    .inside-notification .spinner {
+        border-color: rgba(255, 255, 255, 0.4);
     }
-    .spinner.spinner-success::after {
-        border-top-color: hsla(163, 85%, 40%, 1);
+    .inside-notification .spinner::after {
+        border-top-color: rgba(255, 255, 255, 0.9);
     }
 
     @keyframes spin {

@@ -2,7 +2,7 @@ const serverCookie = process.server ? require('cookie') : undefined;
 const clientCookie = process.client ? require('js-cookie') : undefined;
 
 export default async function ({ $auth, redirect, req, store }) {
-    let token = null
+    let token = null;
     if (process.server) {
         if (req.headers.cookie) {
             const parsed = serverCookie.parse(req.headers.cookie);
@@ -18,5 +18,5 @@ export default async function ({ $auth, redirect, req, store }) {
         })
         .catch((err) => {
             console.warn(err);
-        })
+        });
 }

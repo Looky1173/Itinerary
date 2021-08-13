@@ -3,9 +3,11 @@
         <Navigation />
         <div class="content">
             <div class="card">
+                <!--
                 <div v-if="$route.query.error" class="error">
                     {{ errorMessages[$route.query.error] }}
                 </div>
+                -->
                 <h2>Login to Itinerary</h2>
                 <p>If you don't have an account yet, logging in will create one for you!</p>
                 <br />
@@ -27,17 +29,22 @@
                 username: '',
                 errorMessages: [
                     'Failed FluffyScratch auth! Keep in mind that the login system currently does not support New Scratchers.',
-                    "Somehow you authenticated correctly but your Scratch account couldn't be found. Please contact SuperScratcher_1234!",
+                    "Our servers couldn't communicate with FluffyScratch and/or the Scratch API. Please try again later.",
                     'You are banned from Itinerary! You can still continue to use the website logged out.'
                 ]
+            };
+        },
+        mounted() {
+            if (this.$route.query.error) {
+                this.$notifications.notify({ content: { message: this.errorMessages[this.$route.query.error] }, type: 'error' });
             }
         },
         methods: {
             async login() {
-                window.location.href = `${process.env.backendURL}/auth/begin?user=${this.username}`
+                window.location.href = `${process.env.backendURL}/auth/begin?user=${this.username}`;
             }
         }
-    }
+    };
 </script>
 
 <style scoped>

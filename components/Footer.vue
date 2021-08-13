@@ -16,7 +16,10 @@
                     <NuxtLink to="/faq">FAQ</NuxtLink>
                 </li>
                 <li>
-                    <a href="https://github.com/Looky1173/Itinerary" rel="noopener noreferrer" target="_blank">GitHub</a>
+                    <a href="https://github.com/Looky1173/Itinerary" rel="noopener noreferrer" target="_blank">GitHub (Itinerary)</a>
+                </li>
+                <li>
+                    <a href="https://github.com/Looky1173/Itinerary-Server" rel="noopener noreferrer" target="_blank">GitHub (Itinerary-Server)</a>
                 </li>
                 <li>
                     <a href="https://scratch.mit.edu/users/SuperScratcher_1234/#comments" rel="noopener noreferrer" target="_blank">Feedback</a>
@@ -51,9 +54,9 @@
             return {
                 colors: ['system', 'light', 'dark'],
                 themeNames: ['System', 'Light mode', 'Dark mode']
-            }
+            };
         }
-    }
+    };
 </script>
 
 <style scoped>

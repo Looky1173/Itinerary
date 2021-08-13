@@ -7,7 +7,7 @@
                     <img :src="`${backendURL}/api/user/${name}/picture`" width="50" height="50" class="confirm-pfp" />
                     <h2>Login as {{ name }}</h2>
                 </div>
-                <br>
+                <br />
                 <p>Logging in will grant you access to more features.</p>
                 <br />
                 <div class="buttons">
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    import cookies from 'js-cookie'
+    import cookies from 'js-cookie';
     export default {
         middleware: 'isAuthenticated',
         head: {
@@ -34,46 +34,46 @@
                 token: '',
                 oneTimeToken: this.$route.query.token,
                 backendURL: process.env.backendURL
-            }
+            };
         },
         methods: {
             disableButtons() {
-                this.disabled = true
+                this.disabled = true;
             },
             async confirm() {
-                this.disableButtons()
-                cookies.set('itinerary-token', this.token, { expires: new Date(253402300000000) })
-                await this.$store.dispatch('auth/login', this.token)
+                this.disableButtons();
+                cookies.set('itinerary-token', this.token, { expires: new Date(253402300000000) });
+                await this.$store.dispatch('auth/login', this.token);
                 this.$router.push({
                     path: '/'
-                })
+                });
             },
             async deny() {
-                this.disableButtons()
+                this.disableButtons();
                 let res = await fetch(`${process.env.backendURL}/auth/remove/?token=${this.token}`, {
                     method: 'POST'
-                })
-                let data = await res.json()
-                console.log(data)
+                });
+                let data = await res.json();
+                console.log(data);
                 if (data.error) {
-                    console.warn(data.error)
+                    console.warn(data.error);
                 } else {
                     this.$router.push({
                         path: '/'
-                    })
+                    });
                 }
             }
         },
         async asyncData({ route, redirect, error }) {
-            let res = await fetch(`${process.env.backendURL}/auth/info/?token=${route.query.token}`)
-            let data = await res.json()
+            let res = await fetch(`${process.env.backendURL}/auth/info/?token=${route.query.token}`);
+            let data = await res.json();
             if (data.error) {
-                error(`error: ${data.error}`)
+                error(`error: ${data.error}`);
             } else {
-                return { name: data.name, token: data.token }
+                return { name: data.name, token: data.token };
             }
         }
-    }
+    };
 </script>
 
 <style scoped>

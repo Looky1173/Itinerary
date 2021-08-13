@@ -23,7 +23,7 @@
                 <button @click="$emit('close')" class="btn">Close</button>
             </div>
             <br />
-            <button @click="deleteUser()" :disabled="isDeleteButtonDisabled" class="btn btn-full btn-danger">Delete user and destroy their data</button>
+            <button v-if="!editingOwnProfile" @click="deleteUser()" :disabled="isDeleteButtonDisabled" class="btn btn-full btn-danger">Delete user and destroy their data</button>
         </div>
     </div>
 </template>
@@ -37,16 +37,18 @@
                 isUpdateButtonDisabled: false,
                 isDeleteButtonDisabled: false,
                 wasUpdateSuccess: false,
+                editingOwnProfile: this.user.name == this.$auth.user().name,
+                editingOwnProfileWarningId: null,
                 backendURL: process.env.backendURL
-            }
+            };
         },
         props: ['user'],
         methods: {
             async updateUser() {
                 // Refresh user details
-                await this.$store.dispatch('auth/login', this.$auth.token())
+                await this.$store.dispatch('auth/login', this.$auth.token());
                 if (this.$auth.user()) {
-                    this.isUpdateButtonDisabled = true
+                    this.isUpdateButtonDisabled = true;
                     let res = await fetch(`${process.env.backendURL}/api/user/${this.user.name}`, {
                         method: 'PUT',
                         headers: {
@@ -57,57 +59,57 @@
                             banned: this.isBanned,
                             admin: this.isAdmin
                         })
-                    })
-                    let data = await res.json()
+                    });
+                    let data = await res.json();
                     if (data) {
-                        console.log(data)
+                        console.log(data);
                         if (!data.error) {
                             // Success
-                            this.$emit('refresh')
-                            this.wasUpdateSuccess = true
+                            this.$emit('refresh');
+                            this.wasUpdateSuccess = true;
                             setTimeout(() => {
-                                this.wasUpdateSuccess = false
-                                this.isUpdateButtonDisabled = false
-                            }, 2000)
+                                this.wasUpdateSuccess = false;
+                                this.isUpdateButtonDisabled = false;
+                            }, 2000);
                         } else {
                             // Error
-                            alert("An error has occured and we couldn't update the requested user! Please check the console for details.")
-                            console.warn(data.error)
-                            this.isUpdateButtonDisabled = false
+                            alert("An error has occured and we couldn't update the requested user! Please check the console for details.");
+                            console.warn(data.error);
+                            this.isUpdateButtonDisabled = false;
                         }
                     }
                 } else {
                     this.$router.push({
                         path: '/login'
-                    })
+                    });
                 }
             },
             async deleteUser() {
                 if (confirm(`Are you sure you want to delete the user ${this.user.name} and all their data?\n\n⚠ This operation cannot be undone! ⚠`)) {
-                    this.isDeleteButtonDisabled = true
+                    this.isDeleteButtonDisabled = true;
                     let res = await fetch(`${process.env.backendURL}/api/user/${this.user.name}`, {
                         method: 'DELETE',
                         headers: {
                             Authorization: this.$auth.token(),
                             'Content-Type': 'application/json'
                         }
-                    })
-                    let data = await res.json()
+                    });
+                    let data = await res.json();
                     if (data) {
                         if (!data.error) {
                             // Success
-                            this.$emit('refresh')
-                            this.$emit('close')
-                            this.isDeleteButtonDisabled = false
+                            this.$emit('refresh');
+                            this.$emit('close');
+                            this.isDeleteButtonDisabled = false;
                         } else {
                             // Error
                             if (data.error.code !== 'unknown') {
-                                alert(data.error.detail)
+                                alert(data.error.detail);
                             } else {
-                                alert("An error has occured and we couldn't delete the requested user! Please check the console for details.")
+                                alert("An error has occured and we couldn't delete the requested user! Please check the console for details.");
                             }
-                            console.warn(data.error)
-                            this.isDeleteButtonDisabled = false
+                            console.warn(data.error);
+                            this.isDeleteButtonDisabled = false;
                         }
                     }
                 }
@@ -115,10 +117,24 @@
         },
         function() {
             if (this.user.admin) {
-                this.isAdmin = true
+                this.isAdmin = true;
+            }
+        },
+        async mounted() {
+            if (this.editingOwnProfile) {
+                this.editingOwnProfileWarningId = await this.$notifications.notify({
+                    content: { message: 'You are editing your own profile; be careful when changing things!' },
+                    type: 'warning',
+                    timeout: 5000
+                });
+            }
+        },
+        destroyed() {
+            if (this.editingOwnProfileWarningId) {
+                this.$notifications.removeNotification(this.editingOwnProfileWarningId);
             }
         }
-    }
+    };
 </script>
 
 <style scoped>
@@ -129,7 +145,7 @@
         top: 0;
         width: 100%;
         height: 100%;
-        overflow: auto;
+        overflow: hidden;
         background-color: rgba(0, 0, 0, 0.4);
     }
 
@@ -139,6 +155,7 @@
         padding: 20px;
         width: 80%;
         border-radius: 0.5rem;
+        max-width: 50em;
     }
 
     .pfp {

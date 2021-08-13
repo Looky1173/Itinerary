@@ -86,6 +86,19 @@
     --checkbox-background: var(--snow-storm-dark);
     --checkbox-dark-background: var(--white-color);
     --checkbox-background-checked: var(--frost);
+
+    --notification-background: var(--frost);
+    --notification-text: var(--white-color);
+    --notification-close-text: var(--snow-storm-light);
+    --notification-success-background: var(--aurora-green);
+    --notification-success-text: var(--white-color);
+    --notification-success-close-text: var(--snow-storm-light);
+    --notification-warning-background: var(--aurora-yellow);
+    --notification-warning-text: var(--polar-night-very-dark);
+    --notification-warning-close-text: var(--polar-night-light);
+    --notification-error-background: var(--aurora-red);
+    --notification-error-text: var(--white-color);
+    --notification-error-close-text: var(--snow-storm-light);
 }
 
 .dark-mode {
@@ -151,7 +164,7 @@ a:link,
 a:visited,
 a:active {
     text-decoration: none;
-    color: var(--link)
+    color: var(--link);
 }
 
 a:hover {
@@ -165,7 +178,7 @@ a:hover {
 .card {
     background-color: var(--card-background);
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 1rem;
     margin: 10px 0;
 }
 
@@ -232,13 +245,18 @@ body::-webkit-scrollbar-thumb:hover {
     background: var(--button-danger-background);
     color: var(--button-danger-text);
 }
-input {
+input,
+textarea {
     color: inherit;
     font: inherit;
     margin: 0;
 }
-input {
+input,
+textarea {
     line-height: normal;
+}
+textarea {
+    line-height: 1.5rem;
 }
 input[type="checkbox"] {
     box-sizing: border-box;
@@ -255,6 +273,9 @@ input[type="checkbox"] {
     padding: 0 1rem;
     color: var(--input-text);
     font-size: 0.875rem;
+}
+textarea.input {
+    padding: 0.75rem 1rem;
 }
 .input:focus {
     box-shadow: 0 0 0 0.25rem var(--input-focus-shadow);
@@ -301,4 +322,21 @@ input[type="checkbox"].checkbox:checked {
     font-size: 0.75rem;
     background-image: url(~assets/img/checkmark.svg);
     background-position: center;
+    animation: bounce .3s;
 }
+
+hr {
+    margin: 1rem 0;
+    border-style: none;
+    border-top: 1px dashed var(--ui-tertiary, hsla(215, 50%, 90%, 1));
+}
+
+@keyframes bounce {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.8);
+    }
+  }

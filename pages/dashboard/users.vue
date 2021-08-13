@@ -84,58 +84,58 @@
                 },
                 username: null,
                 isCreateButtonDisabled: false
-            }
+            };
         },
         methods: {
             refresh() {
-                this.$fetch()
+                this.$fetch();
             },
             onRowClick(params) {
-                console.log(params.row)
-                this.user.name = params.row.name
-                this.user.banned = params.row.banned
-                this.user.admin = params.row.admin
-                this.showUsersEditorModal = true
+                console.log(params.row);
+                this.user.name = params.row.name;
+                this.user.banned = params.row.banned;
+                this.user.admin = params.row.admin;
+                this.showUsersEditorModal = true;
             },
             async createUser() {
                 if (!this.username) {
-                    alert('You must enter a username!')
-                    return
+                    alert('You must enter a username!');
+                    return;
                 }
                 // Refresh user details
-                await this.$store.dispatch('auth/login', this.$auth.token())
+                await this.$store.dispatch('auth/login', this.$auth.token());
                 if (this.$auth.user()) {
-                    this.isCreateButtonDisabled = true
+                    this.isCreateButtonDisabled = true;
                     let res = await fetch(`${process.env.backendURL}/api/user/${this.username}`, {
                         method: 'PUT',
                         headers: {
                             Authorization: this.$auth.token(),
                             'Content-Type': 'application/json'
                         }
-                    })
-                    let data = await res.json()
+                    });
+                    let data = await res.json();
                     if (data) {
-                        console.log(data)
+                        console.log(data);
                         if (!data.error) {
                             // Success
-                            this.refresh()
-                            this.isCreateButtonDisabled = false
-                            this.username = ''
+                            this.refresh();
+                            this.isCreateButtonDisabled = false;
+                            this.username = '';
                         } else {
                             // Error
                             if (data.error.code !== 'unknown') {
-                                alert(data.error.detail)
+                                alert(data.error.detail);
                             } else {
-                                alert("An error has occured and we couldn't create the requested user! Please check the console for details.")
+                                alert("An error has occured and we couldn't create the requested user! Please check the console for details.");
                             }
-                            console.warn(data.error)
-                            this.isCreateButtonDisabled = false
+                            console.warn(data.error);
+                            this.isCreateButtonDisabled = false;
                         }
                     }
                 } else {
                     this.$router.push({
                         path: '/login'
-                    })
+                    });
                 }
             }
         },
@@ -145,16 +145,16 @@
                 headers: {
                     Authorization: this.$auth.token()
                 }
-            })
-            let data = await res.json()
-            console.log(data)
+            });
+            let data = await res.json();
+            console.log(data);
             data.forEach(function (item, index) {
-                item.meta.updated = new Date(item.meta.updated).toLocaleString()
-            })
-            this.rows = data
+                item.meta.updated = new Date(item.meta.updated).toLocaleString();
+            });
+            this.rows = data;
         },
         fetchOnServer: false
-    }
+    };
 </script>
 
 <style scoped>

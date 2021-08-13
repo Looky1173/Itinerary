@@ -1,16 +1,16 @@
-const cookie = process.server ? require('cookie') : undefined
+const cookie = process.server ? require('cookie') : undefined;
 
 export const actions = {
     async nuxtServerInit({ commit }, { req, res }) {
         // handle auth stuff
 
-        let token = null
+        let token = null;
         if (req.headers.cookie) {
-            const parsed = cookie.parse(req.headers.cookie)
+            const parsed = cookie.parse(req.headers.cookie);
             try {
-                token = parsed['itinerary-token']
+                token = parsed['itinerary-token'];
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
         }
         // if the cookie exists, then get user data
@@ -24,17 +24,17 @@ export const actions = {
                 .then((data) => {
                     if (data.error) {
                         // if theres an error (token invalid or user deleted, log the user out and remove the token)
-                        commit('auth/reset_user', null)
-                        commit('auth/set_token', null)
-                        res.setHeader('Set-Cookie', [`itinerary-token=false; expires=Thu, 01 Jan 1970 00:00:00 GMT`])
+                        commit('auth/reset_user', null);
+                        commit('auth/set_token', null);
+                        res.setHeader('Set-Cookie', [`itinerary-token=false; expires=Thu, 01 Jan 1970 00:00:00 GMT`]);
                     } else {
                         // if data, save to store
-                        commit('auth/set_user', data)
-                        commit('auth/set_token', token)
+                        commit('auth/set_user', data);
+                        commit('auth/set_token', token);
                     }
                 }).catch((error) => {
-                    console.warn(error)
-                })
+                    console.warn(error);
+                });
         }
     }
-}
+};
