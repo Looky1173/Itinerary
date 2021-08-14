@@ -22,6 +22,9 @@
                     <a href="https://github.com/Looky1173/Itinerary-Server" rel="noopener noreferrer" target="_blank">GitHub (Itinerary-Server)</a>
                 </li>
                 <li>
+                    <a href="https://github.com/Looky1173/Itinerary-Contributors" rel="noopener noreferrer" target="_blank">GitHub (Itinerary-Contributors)</a>
+                </li>
+                <li>
                     <a href="https://scratch.mit.edu/users/SuperScratcher_1234/#comments" rel="noopener noreferrer" target="_blank">Feedback</a>
                 </li>
             </ul>

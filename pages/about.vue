@@ -13,9 +13,9 @@
             </div>
             <div class="card">
                 <h1>Credits</h1>
-                <p>Thank you to everyone who contributed in any way to this project!</p>
+                <p>Thank you to everyone who contributed in any way to this project! <a href="https://allcontributors.org/docs/en/emoji-key">What do the emoji represent?</a></p>
                 <br />
-                <p><strong>Credits will be listed soon...</strong></p>
+                <Contributors />
             </div>
         </div>
         <Footer />
@@ -23,7 +23,13 @@
 </template>
 
 <script>
-    export default {};
+    export default {
+        head() {
+            return {
+                title: 'About | Itinerary'
+            };
+        }
+    };
 </script>
 
 <style scoped>
