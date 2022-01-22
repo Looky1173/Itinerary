@@ -78,9 +78,9 @@
     };
 </script>
 
-<style>
-    .navigation-handles .hooper-next,
-    .navigation-handles .hooper-prev {
+<style scoped>
+    .navigation-handles >>> .hooper-next,
+    .navigation-handles >>> .hooper-prev {
         fill: white;
         background-color: var(--header-background);
         width: 60px;
@@ -88,16 +88,16 @@
         border-radius: 50%;
     }
 
-    .navigation-handles .hooper-next.is-disabled,
-    .navigation-handles .hooper-prev.is-disabled {
+    .navigation-handles >>> .hooper-next.is-disabled,
+    .navigation-handles >>> .hooper-prev.is-disabled {
         opacity: 0.7;
     }
 
-    .hooper-next {
+    .carousel >>> .hooper-next {
         right: -65px;
     }
 
-    .hooper-prev {
+    .carousel >>> .hooper-prev {
         left: -65px;
     }
 
