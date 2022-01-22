@@ -14,8 +14,7 @@
             </div>
             <div class="card">
                 <p>
-                    <strong>Welcome to Itinerary!</strong> Currently, there is barely anything to see here, except for some hidden easter eggs (<i>look at the 404 page</i>).
-                    <strong>Don't forget to check back soon as game jams are coming to Itinerary in a few weeks!</strong>
+                    <strong>Welcome to Itinerary!</strong>
                 </p>
                 <br />
                 <p>
