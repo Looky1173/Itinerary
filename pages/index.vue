@@ -4,6 +4,15 @@
         <WelcomeBanner />
         <div class="content">
             <div class="card">
+                <h2>Game jams</h2>
+                <Loading v-if="loadingJams" message="Fetching game jams..." />
+                <hooper v-if="!loadingJams" :trimWhiteSpace="true" :settings="hooperSettings" class="carousel">
+                    <slide v-for="(jam, index) in jams" :key="jam.slug"><GameJam :data="jam" :class="{ first: index === 0, last: jams.length - 1 === index }" /></slide>
+
+                    <hooper-navigation slot="hooper-addons" class="navigation-handles"></hooper-navigation>
+                </hooper>
+            </div>
+            <div class="card">
                 <p>
                     <strong>Welcome to Itinerary!</strong> Currently, there is barely anything to see here, except for some hidden easter eggs (<i>look at the 404 page</i>).
                     <strong>Don't forget to check back soon as game jams are coming to Itinerary in a few weeks!</strong>
@@ -20,8 +29,80 @@
 </template>
 
 <script>
-    export default {};
+    import { Hooper, Slide, Navigation as HooperNavigation } from 'hooper';
+    import 'hooper/dist/hooper.css';
+    export default {
+        data() {
+            return {
+                loadingJams: true,
+                jams: null,
+                hooperSettings: {
+                    itemsToShow: 1,
+                    breakpoints: {
+                        800: {
+                            itemsToShow: 2,
+                        },
+                        1200: {
+                            itemsToShow: 3,
+                        },
+                        1600: {
+                            itemsToShow: 4,
+                        },
+                    },
+                },
+            };
+        },
+        components: {
+            Hooper,
+            Slide,
+            HooperNavigation,
+        },
+        methods: {
+            async fetchJams() {
+                let response = await fetch(`${process.env.backendURL}/api/jams/`, {
+                    method: 'GET',
+                    headers: {
+                        Authorization: this.$auth.token(),
+                        'Content-Type': 'application/json',
+                    },
+                });
+                response = await response.json();
+
+                this.jams = response;
+
+                this.loadingJams = false;
+            },
+        },
+        mounted() {
+            this.fetchJams();
+        },
+    };
 </script>
 
 <style>
+    .navigation-handles .hooper-next,
+    .navigation-handles .hooper-prev {
+        fill: white;
+        background-color: var(--header-background);
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+    }
+
+    .navigation-handles .hooper-next.is-disabled,
+    .navigation-handles .hooper-prev.is-disabled {
+        opacity: 0.7;
+    }
+
+    .hooper-next {
+        right: -65px;
+    }
+
+    .hooper-prev {
+        left: -65px;
+    }
+
+    .carousel {
+        height: 350px;
+    }
 </style>

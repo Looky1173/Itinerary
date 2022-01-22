@@ -66,7 +66,7 @@
     .Footer {
         background-color: var(--footer-background);
         padding: 10px 0;
-        margin: 10px 0;
+        margin-top: 10px;
     }
 
     .links {

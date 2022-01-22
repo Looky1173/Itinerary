@@ -4,7 +4,10 @@
         <div class="content">
             <div class="card">
                 <h1>Dashboard - {{ $auth.user().name }}</h1>
-                <button @click="deleteUser()" :disabled="isDeleteButtonDisabled" class="btn btn-full btn-danger">Delete my account and destroy my data</button>
+                <hr />
+                <h2>Danger Zone</h2>
+                <br />
+                <button @click="deleteUser()" :disabled="isDeleteButtonDisabled" class="btn btn-danger">Delete my account and destroy my data</button>
             </div>
             <div class="card" v-if="$auth.user().admin">
                 <h1>Admin tools</h1>
@@ -20,7 +23,7 @@
         middleware: 'isNotAuthenticated',
         data() {
             return {
-                isDeleteButtonDisabled: false
+                isDeleteButtonDisabled: false,
             };
         },
         methods: {
@@ -32,8 +35,8 @@
                         method: 'DELETE',
                         headers: {
                             Authorization: this.$auth.token(),
-                            'Content-Type': 'application/json'
-                        }
+                            'Content-Type': 'application/json',
+                        },
                     });
                     let data = await res.json();
                     if (data) {
@@ -41,22 +44,22 @@
                             // Success
                             await this.$store.dispatch('auth/clearLoggedInState');
                             this.$router.push({
-                                path: '/'
+                                path: '/',
                             });
                         } else {
                             // Error
                             if (data.error.code !== 'unknown') {
                                 alert(data.error.detail);
                             } else {
-                                alert("An error has occured and we couldn't delete your account! Please check the console for details.");
+                                alert("An error has occurred and we couldn't delete your account! Please check the console for details.");
                             }
                             console.warn(data.error);
                             this.isDeleteButtonDisabled = false;
                         }
                     }
                 }
-            }
-        }
+            },
+        },
     };
 </script>
 

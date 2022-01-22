@@ -1,5 +1,5 @@
 <template>
-    <div :class="`notification ${notification.type}`">
+    <div :class="`notification ${notification.type} ${closing ? 'closing' : ''}`">
         <Loading v-if="notification.content.loading" type="notification" />
         <div class="message">{{ notification.content.message }}</div>
         <span v-if="notification.isCloseable" @click="close()" class="close">Close</span>
@@ -9,18 +9,26 @@
 <script>
     export default {
         props: ['notification'],
+        data() {
+            return {
+                closing: false,
+            };
+        },
         methods: {
             close() {
-                this.$notifications.removeNotification(this.notification.id);
-            }
+                this.closing = true;
+                setTimeout(() => {
+                    this.$notifications.removeNotification(this.notification.id);
+                }, 500);
+            },
         },
         created() {
-            if (this.notification.timeout) {
+            if (!this.notification.disableTimeout) {
                 setTimeout(() => {
                     this.close();
-                }, this.notification.timeout);
+                }, this.notification.timeout || 5000);
             }
-        }
+        },
     };
 </script>
 
@@ -96,5 +104,10 @@
 
     .error .close {
         color: var(--notification-error-close-text);
+    }
+
+    .closing {
+        opacity: 0;
+        transition: opacity 0.5s ease-out;
     }
 </style>

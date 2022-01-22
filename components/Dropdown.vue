@@ -12,25 +12,29 @@
         props: {
             reference: {
                 type: String,
-                required: true
+                required: true,
             },
             placement: {
                 type: String,
-                default: 'bottom-start'
-            }
+                default: 'bottom-start',
+            },
+            options: {
+                type: Object,
+                default: null,
+                required: false,
+            },
         },
         mounted() {
             this.$nextTick(function () {
                 var button = this.$parent.$refs[this.reference];
                 var dropdown = this.$refs['dropdown-self'];
 
-                var dropdownAlignment = this.align;
-
                 console.log(button);
                 console.log(dropdown);
 
                 const popperInstance = createPopper(button, dropdown, {
-                    placement: this.placement
+                    placement: this.placement,
+                    ...this.options,
                 });
 
                 function show() {
@@ -47,7 +51,7 @@
                 document.addEventListener('click', function (e) {
                     const target = e.target;
                     if (target === dropdown) return;
-                    if (target === button) {
+                    if (button.contains(target)) {
                         e.preventDefault();
                         if (button.hasAttribute('data-dropdown-open')) {
                             hide();
@@ -61,7 +65,7 @@
                     }
                 });
             });
-        }
+        },
     };
 </script>
 
@@ -77,7 +81,6 @@
 
     .dropdown-content {
         border: 1px solid hsla(0, 0%, 0%, 0.15);
-        border-radius: 0 0 8px 8px;
         background-color: var(--header-background);
         padding: 0;
         margin: 0;
@@ -96,14 +99,41 @@
         font-size: 0.75rem;
         margin: 0;
         font-weight: bold;
+        background-color: var(--header-background);
     }
 
-    .dropdown-content .dropdown-item:last-child {
+    .dropdown-item.danger {
+        background-color: var(--button-danger-background);
+    }
+
+    .rounded .dropdown-content {
+        border-radius: 8px;
+    }
+
+    .rounded .dropdown-content .dropdown-item:first-child {
+        border-radius: 8px 8px 0 0;
+    }
+
+    .rounded .dropdown-content .dropdown-item:last-child {
+        border-radius: 0 0 8px 8px;
+    }
+
+    .rounded .dropdown-content .dropdown-item:only-child {
+        border-radius: 8px;
+    }
+
+    .rounded-top .dropdown-content .dropdown-item:first-child,
+    .rounded-top .dropdown-content {
+        border-radius: 8px 8px 0 0;
+    }
+
+    .rounded-bottom .dropdown-content .dropdown-item:last-child,
+    .rounded-bottom .dropdown-content {
         border-radius: 0 0 8px 8px;
     }
 
     .dropdown-item.hoverable:hover {
-        background-color: hsla(0, 0%, 0%, 0.15);
+        filter: brightness(0.9);
     }
 
     .hoverable {

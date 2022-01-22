@@ -10,8 +10,8 @@
                 </div>
             </template>
             <template #actions>
-                <button @click="getCatImageAndQuote(images, quotes)" class="btn btn-primary" style="margin-right: 10px">Can I paw-lease see another one?</button>
                 <button @click="hideCatsModal = true" class="btn">Paw-don me</button>
+                <button @click="getCatImageAndQuote(images, quotes)" class="btn btn-primary" style="margin-left: 10px">Can I paw-lease see another one?</button>
             </template>
         </Modal>
         <div class="content">
@@ -102,7 +102,7 @@
                     '/img/cats/45.jpg',
                     '/img/cats/46.jpg',
                     '/img/cats/47.jpg',
-                    '/img/cats/48.jpg'
+                    '/img/cats/48.jpg',
                 ],
                 quotes: [
                     'I became a pet after retiring from NASA.',
@@ -134,12 +134,12 @@
                     'If Scratch code happened in real life, "Move 10" would make me just sit there and look at you',
                     'I theorized the existence of radium and then was so disappointed to out that Marie Curie had beat me to it in 1902!',
                     'In my free time, I like to go bird watching.',
-                    'Hannah Meowtana was inspired by my life.'
+                    'Hannah Meowtana was inspired by my life.',
                 ],
                 image: null,
                 selectedImage: null,
                 quote: null,
-                selectedQuote: null
+                selectedQuote: null,
             };
         },
         methods: {
@@ -153,11 +153,11 @@
 
                 this.selectedImage = this.image;
                 this.selectedQuote = this.quote;
-            }
+            },
         },
         mounted() {
             this.getCatImageAndQuote(this.images, this.quotes);
-        }
+        },
     };
 </script>
 

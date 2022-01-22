@@ -14,11 +14,6 @@
                 return this.$store.getters['notifications/allNotifications'];
             }
         },
-        methods: {
-            test() {
-                this.$notifications.notify({ content: 'Test' });
-            }
-        }
     };
 </script>
 
@@ -28,7 +23,7 @@
         justify-content: center;
         width: 100%;
         z-index: 600;
-        position: absolute;
+        position: fixed;
         margin-top: 53px;
         pointer-events: none;
     }

@@ -3,13 +3,13 @@
         <div class="wrapper">
             <div class="navigation-general">
                 <div class="navigation-group">
-                    <NuxtLink to="/" class="navigation-item hoverable link"> Home </NuxtLink>
+                    <NuxtLink to="/" class="navigation-item hoverable link"><img src="/img/Itinerary.svg" width="30" /> Home</NuxtLink>
                     <NuxtLink to="/about" class="navigation-item hoverable link"> About </NuxtLink>
                     <NuxtLink to="/developers" class="navigation-item hoverable link"> Developers </NuxtLink>
                 </div>
                 <div class="navigation-divider"></div>
                 <div class="navigation-item">
-                    <a href="https://scratch.mit.edu/users/SuperScratcher_1234/#comments" rel="noopener noreferrer" target="_blank" class="navigation-feedback">
+                    <a href="https://scratch.mit.edu/users/Looky1173/#comments" rel="noopener noreferrer" target="_blank" class="navigation-feedback">
                         <span class="navigation-button outlined" role="button">
                             <div class="button-content">
                                 <span>Feedback</span>
@@ -31,12 +31,8 @@
             </div>
         </div>
         <div class="dropdowns">
-            <Dropdown :reference="'new-stuff-button'" placement="bottom-end">
-                <div v-if="isAdmin">
-                    <NuxtLink to="/jams/new" class="dropdown-item hoverable">Scratch Game Jam</NuxtLink>
-                    <div class="divider"></div>
-                </div>
-                <li class="dropdown-item hoverable disabled" title="Projects are under construction and not available yet.">Project</li>
+            <Dropdown :reference="'new-stuff-button'" placement="bottom-end" class="rounded-bottom">
+                <NuxtLink to="/jams/new" class="dropdown-item hoverable">Scratch Game Jam</NuxtLink>
             </Dropdown>
         </div>
     </div>
@@ -50,18 +46,18 @@
             return {
                 backendURL: process.env.backendURL,
                 isLoggedIn: this.$auth.loggedIn(),
-                isAdmin: this.$auth.user()?.admin
+                isAdmin: this.$auth.user()?.admin,
             };
         },
         methods: {
             async logout() {
                 await this.$store.dispatch('auth/logout');
                 this.$router.push({
-                    path: '/'
+                    path: '/',
                 });
                 this.$notifications.notify({ content: { message: 'You have been logged out.' }, timeout: 5000 });
-            }
-        }
+            },
+        },
     };
 </script>
 
@@ -132,10 +128,7 @@
         user-select: none;
     }
 
-    .navigation-item.hoverable:hover {
-        background-color: hsla(0, 0%, 0%, 0.15);
-    }
-
+    .navigation-item.hoverable:hover,
     .navigation-item.hoverable[data-dropdown-open] {
         background-color: hsla(0, 0%, 0%, 0.15);
     }

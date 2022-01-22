@@ -14,9 +14,11 @@
 		"url": "https://github.com/Looky1173/Itinerary.git"
 	},
 	"dependencies": {
+		"@nuxtjs/markdownit": "^2.0.0",
 		"@popperjs/core": "^2.9.2",
 		"cookie": "^0.4.1",
 		"core-js": "^3.9.1",
+		"hooper": "^0.3.4",
 		"js-cookie": "^2.2.1",
 		"nuxt": "^2.15.3",
 		"vue-good-table": "^2.21.10"

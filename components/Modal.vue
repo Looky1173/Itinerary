@@ -172,6 +172,8 @@
         border-radius: 0;
         flex-direction: column;
         background-color: var(--card-background);
+        max-height: 80vh;
+        overflow-y: scroll;
     }
 
     .modal-actions {
