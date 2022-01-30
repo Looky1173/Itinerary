@@ -4,11 +4,11 @@
         <div v-if="isWinner || isCommunityWinner" class="winner-badge">{{ isWinner ? 'Winner' : 'Selected by the community' }}</div>
         <div class="project-content">
             <div class="cover-image" :style="{ backgroundImage: `url(https://uploads.scratch.mit.edu/get_image/project/${data.project}_9000x7200.png)` }">
+                <button @click="handleUpvote()" :disabled="disableUpvoting" :class="`btn upvote ${upvoted ? 'upvoted' : ''}`">
+                    {{ upvoted ? 'Upvoted' : 'Upvote' }} <span class="pill" style="margin-left: 5px">{{ upvotes }}</span>
+                </button>
                 <div class="blur">
                     <h3>{{ data.title }}</h3>
-                    <button @click="handleUpvote()" :disabled="disableUpvoting" :class="`btn upvote ${upvoted ? 'upvoted' : ''}`">
-                        {{ upvoted ? 'Upvoted' : 'Upvote' }} <span class="pill" style="margin-left: 5px">{{ upvotes }}</span>
-                    </button>
                 </div>
             </div>
             <div class="info">
