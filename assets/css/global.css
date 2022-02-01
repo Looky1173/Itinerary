@@ -196,6 +196,7 @@ a:hover {
 
 .content {
     margin: 0 10%;
+    margin-bottom: auto;
 }
 
 .card {
