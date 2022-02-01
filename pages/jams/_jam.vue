@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <Navigation />
         <Modal :isOpen="!hideManagersModal" :hideSubHeader="false" @close="hideManagersModal = true" class="edit-managers-modal">
             <template #header>Edit managers</template>

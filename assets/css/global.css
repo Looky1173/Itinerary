@@ -188,6 +188,12 @@ a:hover {
     color: var(--link-hovered);
 }
 
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .content {
     margin: 0 10%;
 }

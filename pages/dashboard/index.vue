@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <Navigation />
         <div class="content">
             <div class="card">
