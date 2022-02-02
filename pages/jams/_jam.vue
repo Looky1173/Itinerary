@@ -268,6 +268,7 @@
                 </div>
             </div>
         </div>
+        <div class="content" v-if="!loadingJam"></div>
         <Footer />
     </div>
 </template>
