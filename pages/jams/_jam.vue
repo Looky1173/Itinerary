@@ -91,8 +91,8 @@
                                 id="jam-text"
                                 class="input"
                                 placeholder="Elaborate on the description. Explain the theme of the game jam, the rules & requirements, the prize, etc... "
-                                :value="TEMPjamBody"
-                                ref="jamBody"
+                                ref="TEMPjamBody"
+                                v-model="TEMPjamBody"
                             ></textarea></Tab
                         ><Tab title="Preview">
                             <div v-html="$md.render(TEMPjamBody ? TEMPjamBody : '*There is nothing to see here... yet!*')"></div>
@@ -377,7 +377,7 @@
             async updateJam() {
                 let jamName = this.$refs.jamName.value;
                 let jamDescription = this.$refs.jamDescription.value;
-                let jamBody = this.$refs.jamBody.value;
+                let jamBody = this.$refs.TEMPjamBody.value;
                 let jamImage = this.$refs.jamImage.value;
                 let jamStart = this.$refs.jamStart.value;
                 let jamEnd = this.$refs.jamEnd.value;
