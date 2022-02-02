@@ -199,6 +199,12 @@ a:hover {
     margin-bottom: auto;
 }
 
+@media only screen and (max-width: 30em) {
+    .content {
+        margin: 0 0 auto;
+    }
+}
+
 .card {
     background-color: var(--card-background);
     padding: 20px;

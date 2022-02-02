@@ -101,6 +101,20 @@
         left: -65px;
     }
 
+    @media only screen and (max-width: 30em) {
+        .carousel >>> .hooper-next {
+            right: -20px;
+            top: 20px;
+            transform: scale(0.9);
+        }
+
+        .carousel >>> .hooper-prev {
+            left: -20px;
+            top: 20px;
+            transform: scale(0.9);
+        }
+    }
+
     .carousel {
         height: 350px;
     }
