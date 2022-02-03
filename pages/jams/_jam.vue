@@ -341,12 +341,14 @@
                 showAdvancedOptions: false,
                 advancedOptions: {},
                 disableAdvancedOptionsButtons: false,
-                showMysteryBanner: this.advancedOptions?.['enableMystery'] && jamStatus == 'Starting in',
             };
         },
         computed: {
             projectsList() {
                 return this.projects;
+            },
+            showMysteryBanner() {
+                return this.advancedOptions?.['enableMystery'] && this.jamStatus == 'Starting in';
             },
         },
         methods: {
