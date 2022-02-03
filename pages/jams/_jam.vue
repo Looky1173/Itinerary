@@ -248,13 +248,19 @@
                         <Tabs>
                             <Tab title="About this jam">
                                 <div class="card">
-                                    <div class="card dark" v-if="advancedOptions.enableMystery && jamStatus == 'Starting in'" style="display: flex; align-items: center;">
-                                        <div style="margin-right: 20px; width: 2rem; height: 2rem;">
-                                            <Icon name="visibility-off" class="icon" style="width: 100%; height: 100%;;" />
+                                    <div class="card dark" v-if="showMysteryBanner" style="display: flex; align-items: center">
+                                        <div style="margin-right: 20px; width: 2rem; height: 2rem">
+                                            <Icon name="visibility-off" class="icon" style="width: 100%; height: 100%" />
                                         </div>
                                         <div>
                                             <h3>Mystery mode is enabled</h3>
-                                            <p>{{isAdmin || isManager ? 'Only managers (and admins) can see this description until the jam starts' : 'This jam is scheduled to start in the future. Therefore, the description is hidden to guarantee a fair start for everyone.'}}</p>
+                                            <p>
+                                                {{
+                                                    isAdmin || isManager
+                                                        ? 'Only managers (and admins) can see this description until the jam starts'
+                                                        : 'This jam is scheduled to start in the future. Therefore, the description is hidden to guarantee a fair start for everyone.'
+                                                }}
+                                            </p>
                                         </div>
                                     </div>
                                     <div v-html="$md.render(jamBody ? jamBody : '*Uh, oh! No body was provided for this game jam.*')"></div>
@@ -333,8 +339,9 @@
                 loadingManagers: true,
                 managers: null,
                 showAdvancedOptions: false,
-                advancedOptions: null,
+                advancedOptions: {},
                 disableAdvancedOptionsButtons: false,
+                showMysteryBanner: this.advancedOptions?.['enableMystery'] && jamStatus == 'Starting in',
             };
         },
         computed: {
@@ -371,7 +378,9 @@
                 this.jamImage = response.content.headerImage;
                 this.jamStart = response?.dates?.start;
                 this.jamEnd = response?.dates?.end;
-                this.advancedOptions = response?.options;
+                if (response?.options) {
+                    this.advancedOptions = response?.options;
+                }
 
                 this.calculateDates();
 
