@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <Navigation />
+        <JamAdvancedOptionsModal :isOpen="showAdvancedOptions" @close="showAdvancedOptions = false" @save="saveAdvancedOptions" :originalOptions="advancedOptions" :newJam="true" />
         <div class="content">
             <div class="card">
                 <div v-if="isAdmin">
@@ -62,6 +63,7 @@
                         </div>
                     </div>
                     <hr />
+                    <button class="btn" @click="showAdvancedOptions = true" :disabled="createButtonDisabled">Advanced options</button>
                     <button class="btn btn-primary" @click="create()" :disabled="createButtonDisabled">Create game jam</button>
                 </div>
                 <div v-else>
@@ -91,6 +93,8 @@
                 jamEnd: null,
                 createButtonDisabled: false,
                 isAdmin: this.$auth.user()?.admin,
+                showAdvancedOptions: false,
+                advancedOptions: {},
             };
         },
         methods: {
@@ -116,6 +120,7 @@
                         name: this.jamName,
                         content: { headerImage: this.jamImage, description: this.jamDescription, body: this.jamText },
                         dates: { start: new Date(this.jamStart).toISOString(), end: new Date(this.jamEnd).toISOString() },
+                        options: this.advancedOptions,
                     }),
                 });
                 response = await response.json();
@@ -125,6 +130,10 @@
                     this.$notifications.removeNotification(loadingNotification);
                     this.$notifications.notify({ type: 'success', content: { message: 'Your game jam was created successfully!' } });
                 }
+            },
+            saveAdvancedOptions(event) {
+                this.advancedOptions = event.options;
+                this.showAdvancedOptions = false;
             },
         },
     };

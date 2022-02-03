@@ -1,6 +1,13 @@
 <template>
     <div class="container">
         <Navigation />
+        <JamAdvancedOptionsModal
+            :isOpen="showAdvancedOptions"
+            @close="showAdvancedOptions = false"
+            @save="saveAdvancedOptions"
+            :originalOptions="advancedOptions"
+            :disableButtons="disableAdvancedOptionsButtons"
+        />
         <Modal :isOpen="!hideManagersModal" :hideSubHeader="false" @close="hideManagersModal = true" class="edit-managers-modal">
             <template #header>Edit managers</template>
             <template #sub-header>
@@ -146,7 +153,7 @@
                     </div>
                     <div class="blur" id="jam-countdown">
                         <h3>{{ jamStatus }}</h3>
-                        <Countdown id="countdown" :date="countdown" v-if="countdown" @on-finish="calculateDates()" />
+                        <Countdown id="countdown" :date="countdown" v-if="countdown" @on-finish="loadJam()" />
                     </div>
                 </div>
             </section>
@@ -186,6 +193,8 @@
                                     >
                                         <li class="dropdown-item hoverable" @click="openEditModal()">Edit game jam</li>
                                         <li class="dropdown-item hoverable" @click="hideManagersModal = false">Edit managers</li>
+                                        <div class="divider"></div>
+                                        <li class="dropdown-item hoverable" @click="showAdvancedOptions = true">Advanced options</li>
                                         <div class="divider"></div>
                                         <li
                                             class="dropdown-item hoverable danger disabled"
@@ -239,6 +248,15 @@
                         <Tabs>
                             <Tab title="About this jam">
                                 <div class="card">
+                                    <div class="card dark" v-if="advancedOptions.enableMystery && jamStatus == 'Starting in'" style="display: flex; align-items: center;">
+                                        <div style="margin-right: 20px; width: 2rem; height: 2rem;">
+                                            <Icon name="visibility-off" class="icon" style="width: 100%; height: 100%;;" />
+                                        </div>
+                                        <div>
+                                            <h3>Mystery mode is enabled</h3>
+                                            <p>{{isAdmin || isManager ? 'Only managers (and admins) can see this description until the jam starts' : 'This jam is scheduled to start in the future. Therefore, the description is hidden to guarantee a fair start for everyone.'}}</p>
+                                        </div>
+                                    </div>
                                     <div v-html="$md.render(jamBody ? jamBody : '*Uh, oh! No body was provided for this game jam.*')"></div>
                                 </div>
                             </Tab>
@@ -314,6 +332,9 @@
                 disableAddManagerButton: false,
                 loadingManagers: true,
                 managers: null,
+                showAdvancedOptions: false,
+                advancedOptions: null,
+                disableAdvancedOptionsButtons: false,
             };
         },
         computed: {
@@ -350,6 +371,7 @@
                 this.jamImage = response.content.headerImage;
                 this.jamStart = response?.dates?.start;
                 this.jamEnd = response?.dates?.end;
+                this.advancedOptions = response?.options;
 
                 this.calculateDates();
 
@@ -525,21 +547,6 @@
                 this.projects = response;
                 this.submissionsTitle = `Submissions <span class="pill" style="margin-left: 5px;">${this.projects.length}</span>`;
 
-                /*
-                                                                                                                                                                    await Promise.all(this.projects.map(async (project) => {
-                                                                                                                                                                        let response = await fetch(`https://scratchdb.lefty.one/v3/project/info/${value.project}`, {
-                                                                                                                                                                            method: 'GET',
-                                                                                                                                                                            headers: {
-                                                                                                                                                                                'Content-Type': 'application/json',
-                                                                                                                                                                            },
-                                                                                                                                                                        });
-                                                                                                                                                                        response = await response.json();
-
-                                                                                                                                                                        this.projects[index] = { ...this.projects[index], username: response.username, title: response.title, description: response.description, instructions: response.instructions };
-
-                                                                                                                                                                        console.log(this.projects);
-                                                                                                                                                                    }));*/
-
                 let promises = Object.keys(this.projects).map((k) => {
                     return new Promise((res, rej) => {
                         fetch(`https://scratchdb.lefty.one/v3/project/info/${this.projects[k].project}`, {
@@ -650,13 +657,14 @@
                     }
                 }
             },
-            async removeManager(manager){
-if (
-                    confirm(`Are you sure you want to remove the manager role of "${manager}" for this game jam (${this.jamName} - ${this.jamSlug})?\n\n⚠ They will no longer have access to manager options! ⚠`)
+            async removeManager(manager) {
+                if (
+                    confirm(
+                        `Are you sure you want to remove the manager role of "${manager}" for this game jam (${this.jamName} - ${this.jamSlug})?\n\n⚠ They will no longer have access to manager options! ⚠`,
+                    )
                 ) {
-                   
                     let loadingNotification = await this.$notifications.notify({
-                        content: { message: "Removing manager...", loading: true },
+                        content: { message: 'Removing manager...', loading: true },
                         disableTimeout: true,
                         isCloseable: false,
                     });
@@ -724,6 +732,35 @@ if (
                 response = await response.json();
                 this.managers = response.managers;
                 this.loadingManagers = false;
+            },
+            async saveAdvancedOptions(event) {
+                this.disableAdvancedOptionsButtons = true;
+                this.advancedOptions = event.options;
+
+                let loadingNotification = await this.$notifications.notify({ content: { message: 'Saving advanced options...', loading: true }, disableTimeout: true, isCloseable: false });
+
+                let response = await fetch(`${process.env.backendURL}/api/jams/${this.jamSlug}`, {
+                    method: 'PUT',
+                    headers: {
+                        Authorization: this.$auth.token(),
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        options: this.advancedOptions,
+                    }),
+                });
+                response = await response.json();
+
+                if (response.ok) {
+                    this.disableAdvancedOptionsButtons = false;
+                    if (event.close) {
+                        this.showAdvancedOptions = false;
+                    }
+
+                    this.loadJam();
+                    this.$notifications.removeNotification(loadingNotification);
+                    this.$notifications.notify({ type: 'success', content: { message: 'Saved advanced settings!' } });
+                }
             },
         },
         mounted() {
