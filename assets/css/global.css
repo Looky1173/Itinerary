@@ -129,7 +129,7 @@
     --scrollbar-thumb: var(--frost-very-dark);
     --scrollbar-thumb-hover: var(--frost-dark);
 
-    --button-primary-background: var(--frost-very-dark);
+    --button-primary-background: var(--primary-color-light);
 
     --input-background: var(--polar-night-very-dark);
     --input-text: var(--snow-storm-dark);
