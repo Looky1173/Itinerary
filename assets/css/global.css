@@ -70,7 +70,7 @@
 
     --button-background: var(--polar-night-light);
     --button-text: var(--snow-storm-light);
-    --button-primary-background: var(--frost-dark);
+    --button-primary-background: var(--primary-color-light);
     --button-primary-text: var(--white-color);
     --button-danger-background: var(--aurora-red);
     --button-danger-text: var(--white-color);
