@@ -3,9 +3,9 @@
         <div class="flex-row banner-container">
             <div class="flex-row banner-content column">
                 <h1 class="banner-header">
-                    <span>Discover and participate in Scratch game jams</span>
+                    <span>Discover and Participate in Scratch Game Jams</span>
                     <br />
-                    <span>Embrace the community</span>
+                    <span>Embrace the Community</span>
                 </h1>
                 <div class="flex-row banner-buttons">
                     <NuxtLink class="banner-button create-button button" to="/login">Get started</NuxtLink>
