@@ -248,7 +248,7 @@
                         <Tabs>
                             <Tab title="About this jam">
                                 <div class="card">
-                                    <div class="card dark" v-if="showMysteryBanner" style="display: flex; align-items: center">
+                                    <div class="card dark mystery-info" v-if="showMysteryBanner">
                                         <div style="margin-right: 20px; width: 2rem; height: 2rem">
                                             <Icon name="visibility-off" class="icon" style="width: 100%; height: 100%" />
                                         </div>
@@ -931,7 +931,7 @@
 
     .projects {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         grid-auto-rows: auto;
         gap: 10px;
     }
@@ -951,6 +951,18 @@
             margin-top: 0;
             width: 100%;
             overflow: auto;
+        }
+    }
+
+    .mystery-info {
+        display: flex;
+        align-items: center;
+    }
+
+    @media only screen and (max-width: 720px) {
+        .mystery-info {
+            flex-direction: column;
+            align-items: flex-start;
         }
     }
 </style>
