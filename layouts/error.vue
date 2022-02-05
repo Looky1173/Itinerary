@@ -10,7 +10,7 @@
                 </div>
             </template>
             <template #actions>
-                <button @click="hideCatsModal = true" class="btn">Paw-don me</button>
+                <button @click="hideCatsModal = true" class="btn">Paw-down me</button>
                 <button @click="getCatImageAndQuote(images, quotes)" class="btn btn-primary" style="margin-left: 10px">Can I paw-lease see another one?</button>
             </template>
         </Modal>
@@ -26,7 +26,6 @@
                             <ul>
                                 <li><a href="https://github.com/Looky1173/Itinerary/issues">Create a new issue suggesting it</a></li>
                                 <li><NuxtLink to="/">Return to the home page</NuxtLink></li>
-                                <li><a href="https://findtheinvisiblecow.com/">Find the invisible cow</a></li>
                                 <li>
                                     <a
                                         @click="
@@ -34,7 +33,7 @@
                                             getCatImageAndQuote(images, quotes);
                                         "
                                         href="#"
-                                        >😺 Browse some cats</a
+                                        >Cats?</a
                                     >
                                 </li>
                             </ul>
@@ -114,7 +113,7 @@
                     'By night, I put on a human costume and fight crime.',
                     'My grandma was the inspiration for Warrior Cats.',
                     "You think I'm running back and forth for no reason, but I've got a marathon in June I'm training for.",
-                    'Can you please put on the movie Ratatouille?',
+                    'Can you please put on the movie Catatouille?',
                     "In my secret lab I've almost perfected prosthetic opposable thumbs.",
                     "I'm late for my audition for Cats: The Musical.",
                     "Actually I'm a famous opera meower.",
