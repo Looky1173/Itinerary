@@ -10,7 +10,7 @@
                 </div>
             </template>
             <template #actions>
-                <button @click="hideCatsModal = true" class="btn">Paw-don me</button>
+                <button @click="hideCatsModal = true" class="btn">{{ closeMessage }}</button>
                 <button @click="getCatImageAndQuote(images, quotes)" class="btn btn-primary" style="margin-left: 10px">Can I paw-lease see another one?</button>
             </template>
         </Modal>
@@ -32,6 +32,7 @@
                                         @click="
                                             hideCatsModal = false;
                                             getCatImageAndQuote(images, quotes);
+                                            chooseCloseMessage();
                                         "
                                         href="#"
                                         >😺 Browse some cats</a
@@ -54,6 +55,7 @@
         data() {
             return {
                 hideCatsModal: true,
+                closeMessage: 'Paw-don me',
                 images: [
                     '/img/cats/1.jpg',
                     '/img/cats/2.jpg',
@@ -154,9 +156,13 @@
                 this.selectedImage = this.image;
                 this.selectedQuote = this.quote;
             },
+            chooseCloseMessage() {
+                this.closeMessage = Math.random() < 0.5 ? 'Paw-don me' : 'Paw-down me';
+            },
         },
         mounted() {
             this.getCatImageAndQuote(this.images, this.quotes);
+            this.chooseCloseMessage();
         },
     };
 </script>
