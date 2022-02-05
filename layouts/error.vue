@@ -2,7 +2,7 @@
     <div class="container">
         <Navigation />
         <Modal :isOpen="!hideCatsModal" :hideSubHeader="true" @close="hideCatsModal = true">
-            <template #header>Meow purrrr lick meow! 😺</template>
+            <template #header>Meow?</template>
             <template>
                 <div id="random-cat">
                     <span>{{ selectedQuote }}</span>
