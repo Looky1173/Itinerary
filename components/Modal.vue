@@ -173,7 +173,7 @@
         flex-direction: column;
         background-color: var(--card-background);
         max-height: 80vh;
-        overflow-y: scroll;
+        overflow: auto;
     }
 
     .modal-actions {

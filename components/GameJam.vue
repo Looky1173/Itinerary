@@ -80,7 +80,6 @@
         position: relative;
         width: 100%;
         background-size: cover;
-        background-attachment: fixed;
         display: flex;
         justify-content: left;
         align-items: flex-end;
