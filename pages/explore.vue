@@ -44,7 +44,7 @@
                 jams: null,
                 totalJams: null,
                 jamsToDisplay: null,
-                limit: this.$route.query.limit && !isNaN(this.$route.query.limit) ? this.$route.query.limit : 3,
+                limit: this.$route.query.limit && !isNaN(this.$route.query.limit) ? this.$route.query.limit : 10,
                 totalPages: null,
                 currentPage: this.$route.query.page && !isNaN(this.$route.query.page) ? this.$route.query.page : 1,
             };
