@@ -55,8 +55,8 @@
     export default {
         data() {
             return {
-                colors: ['system', 'light', 'dark'],
-                themeNames: ['System', 'Light mode', 'Dark mode']
+                colors: ['system', 'light', 'dark', 'flame'],
+                themeNames: ['System', 'Light mode', 'Dark mode', 'Flame']
             };
         }
     };
@@ -123,21 +123,5 @@
         align-items: center;
         justify-content: center;
         color: var(--text-muted);
-    }
-
-    .themes {
-        margin-bottom: 0.75rem;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 5px;
-        background: var(--background)
-            url(data:image/svg+xml;base64,PHN2ZyBkYXRhLW5hbWU9IkxheWVyIDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjY0Ij48cGF0aCBkPSJNMjQgMzcuNDNhMS44OCAxLjg4IDAgMCAxLTEuMzMtLjU1bC01LjExLTUuMTFhMS44NyAxLjg3IDAgMCAxIDAtMi42NGMuNzMtLjczIDEyLjE0LS43MyAxMi44NyAwYTEuODcgMS44NyAwIDAgMSAwIDIuNjRsLTUuMTEgNS4xMWExLjg2IDEuODYgMCAwIDEtMS4zMi41NXoiIGZpbGw9IiNiM2IzYjMiLz48cGF0aCBzdHlsZT0iaXNvbGF0aW9uOmlzb2xhdGUiIGZpbGw9IiMyMzFmMjAiIG9wYWNpdHk9Ii4xIiBkPSJNLjAxIDBoMXY2NGgtMXoiLz48L3N2Zz4=)
-            no-repeat right center;
-        padding-right: 4rem;
-        padding-left: 1rem;
-        width: 10rem;
-        height: 3rem;
-        color: var(--text);
-        font-size: 0.875rem;
-        appearance: none;
     }
 </style>

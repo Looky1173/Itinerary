@@ -8,7 +8,7 @@
                     <span>Embrace the community</span>
                 </h1>
                 <div class="flex-row banner-buttons">
-                    <NuxtLink class="banner-button create-button button" to="/login">Get started</NuxtLink>
+                    <NuxtLink class="banner-button create-button button" to="/explore">Get started</NuxtLink>
                     <NuxtLink class="banner-button join-button button" to="/about">Learn more</NuxtLink>
                 </div>
             </div>

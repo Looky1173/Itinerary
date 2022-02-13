@@ -58,7 +58,7 @@
         },
         methods: {
             async fetchJams() {
-                let response = await fetch(`${process.env.backendURL}/api/jams/`, {
+                let response = await fetch(`${process.env.backendURL}/api/jams?limit=20`, {
                     method: 'GET',
                     headers: {
                         Authorization: this.$auth.token(),
@@ -67,7 +67,7 @@
                 });
                 response = await response.json();
 
-                this.jams = response;
+                this.jams = response.jams;
 
                 this.loadingJams = false;
             },

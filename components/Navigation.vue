@@ -5,6 +5,7 @@
                 <div class="navigation-group">
                     <NuxtLink to="/" class="navigation-item hoverable link"><img src="/img/Itinerary.svg" width="30" /> Home</NuxtLink>
                     <NuxtLink to="/about" class="navigation-item hoverable link"> About </NuxtLink>
+                    <NuxtLink to="/explore" class="navigation-item hoverable link"> Explore </NuxtLink>
                     <NuxtLink to="/developers" class="navigation-item hoverable link"> Developers </NuxtLink>
                 </div>
                 <div class="navigation-divider"></div>
