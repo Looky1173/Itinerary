@@ -4,7 +4,7 @@
         <WelcomeBanner />
         <div class="content">
             <div class="card">
-                <h2>Game jams</h2>
+                <h2>Featured game jams</h2>
                 <Loading v-if="loadingJams" message="Fetching game jams..." />
                 <hooper v-if="!loadingJams" :trimWhiteSpace="true" :settings="hooperSettings" class="carousel">
                     <slide v-for="(jam, index) in jams" :key="jam.slug"><GameJam :data="jam" :class="{ first: index === 0, last: jams.length - 1 === index }" /></slide>
@@ -58,7 +58,7 @@
         },
         methods: {
             async fetchJams() {
-                let response = await fetch(`${process.env.backendURL}/api/jams?limit=20`, {
+                let response = await fetch(`${process.env.backendURL}/api/jams?limit=20&featured=true`, {
                     method: 'GET',
                     headers: {
                         Authorization: this.$auth.token(),

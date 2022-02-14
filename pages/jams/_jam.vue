@@ -146,7 +146,9 @@
             <section :style="{ backgroundImage: `url(${jamImage || backgroundImage})` }">
                 <div class="header">
                     <div class="blur">
-                        <h2>{{ jamName }} ({{ jamSlug }})</h2>
+                        <h2 style="display: inline-flex; align-items: center">
+                            {{ jamName }} ({{ jamSlug }}) <span v-if="jamFeatured" class="pill success" style="margin-left: 0.5rem">Featured</span>
+                        </h2>
                         <p>
                             {{ jamDescription }}
                         </p>
@@ -195,6 +197,7 @@
                                         <li class="dropdown-item hoverable" @click="hideManagersModal = false">Edit managers</li>
                                         <div class="divider"></div>
                                         <li class="dropdown-item hoverable" @click="showAdvancedOptions = true">Advanced options</li>
+                                        <li v-if="isAdmin && !loadingJam && !jamFeatured" class="dropdown-item hoverable" @click="featureJam()">Feature game jam</li>
                                         <div class="divider"></div>
                                         <li
                                             class="dropdown-item hoverable danger disabled"
@@ -208,6 +211,7 @@
                                         >
                                             Clear all submissions
                                         </li>
+                                        <li v-if="isAdmin && !loadingJam && jamFeatured" class="dropdown-item hoverable danger" @click="featureJam(true)">Unfeature game jam</li>
                                         <li v-if="isAdmin" class="dropdown-item hoverable danger" @click="deleteJam()">Delete game jam</li>
                                     </Dropdown>
                                 </div>
@@ -314,6 +318,7 @@
                 jamStart: null,
                 jamEnd: null,
                 jamStatus: null,
+                jamFeatured: false,
                 enableSubmissions: false,
                 backgroundImage: null,
                 images: ['/img/backgrounds/blue-watercolour.jpg', '/img/backgrounds/green-watercolour.jpg', '/img/backgrounds/red-watercolour.jpg', '/img/backgrounds/yellow-watercolour.jpg'],
@@ -383,6 +388,7 @@
                 if (response?.options) {
                     this.advancedOptions = response?.options;
                 }
+                this.jamFeatured = response?.featured;
 
                 this.calculateDates();
 
@@ -771,6 +777,34 @@
                     this.loadJam();
                     this.$notifications.removeNotification(loadingNotification);
                     this.$notifications.notify({ type: 'success', content: { message: 'Saved advanced settings!' } });
+                }
+            },
+            async featureJam(unfeature = false) {
+                let loadingNotification = await this.$notifications.notify({
+                    content: { message: unfeature ? 'Unfeaturing game jam...' : 'Featuring game jam...', loading: true },
+                    disableTimeout: true,
+                    isCloseable: false,
+                });
+
+                let response = await fetch(`${process.env.backendURL}/api/jams/${this.jamSlug}/feature/`, {
+                    method: unfeature ? 'DELETE' : 'PUT',
+                    headers: {
+                        Authorization: this.$auth.token(),
+                        'Content-Type': 'application/json',
+                    },
+                });
+                response = await response.json();
+
+                this.$notifications.removeNotification(loadingNotification);
+
+                if (response.ok) {
+                    this.$notifications.notify({
+                        type: 'success',
+                        content: { message: unfeature ? 'This game jam is no longer featured.' : 'This jam is now featured, so it will appear on the front page!' },
+                    });
+                    this.loadJam();
+                } else {
+                    this.$notifications.notify({ type: 'error', content: { message: response.error.detail } });
                 }
             },
         },
