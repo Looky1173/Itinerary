@@ -172,7 +172,7 @@
         border-radius: 0;
         flex-direction: column;
         background-color: var(--card-background);
-        max-height: 80vh;
+        max-height: 70vh;
         overflow: auto;
     }
 
