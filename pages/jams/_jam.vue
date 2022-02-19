@@ -841,6 +841,12 @@
         opacity: 0.9;
     }
 
+    @media only screen and (min-width: 720px) {
+        .admin-options {
+            padding: 0.5rem;
+        }
+    }
+
     section {
         position: relative;
         width: 100%;
