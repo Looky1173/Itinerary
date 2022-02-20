@@ -180,7 +180,7 @@
                                 <button @click="hideSubmissionsModal = false" :disabled="hasParticipated === null ? true : !enableSubmissions" class="btn btn-primary btn-full">
                                     {{ hasParticipated === null ? 'Loading...' : 'Submit your creation' }}
                                 </button>
-                                <button v-if="isAdmin || isManager" ref="admin-options" class="btn admin-options">
+                                <button v-if="isAdmin || isManager" ref="admin-options" class="btn admin-options" title="Options">
                                     <span class="btn-icon">
                                         <Icon name="vertical-dots" />
                                     </span>
