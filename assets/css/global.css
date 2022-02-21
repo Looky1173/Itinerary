@@ -296,6 +296,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 .btn-icon {
     display: inherit;
+    pointer-events: none;
 }
 
 .btn-icon svg,
