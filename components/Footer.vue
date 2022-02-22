@@ -45,7 +45,9 @@
             </select>
             <h4>{{ $t('global.language') }}</h4>
             <select v-model="selectedLanguage" @change="(e) => $i18n.setLocale(e.target.value)">
-                <option v-for="(locale, index) in $i18n.locales" :key="index" :value="locale.code">{{ locale.name }} - ({{ locale.iso }})</option>
+                <option v-for="(locale, index) in $i18n.locales" :key="index" :value="locale.code">
+                    {{ locale.name }} - ({{ locale.iso }}) {{ locale.complete ? '' : '[TRANSLATION INCOMPLETE]' }}
+                </option>
             </select>
         </div>
         <div class="disclaimer">
