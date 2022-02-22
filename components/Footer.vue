@@ -2,18 +2,18 @@
     <div class="Footer">
         <div class="links">
             <ul>
-                <li>About</li>
+                <li>{{ $t('navigation.about') }}</li>
                 <li>
-                    <NuxtLink to="/about">About Itinerary</NuxtLink>
+                    <NuxtLink :to="localePath('/about')">{{ $t('footer.aboutTheSite') }}</NuxtLink>
                 </li>
                 <li>
-                    <NuxtLink to="/developers">For Developers</NuxtLink>
+                    <NuxtLink :to="localePath('/developers')">{{ $t('footer.forDevelopers') }}</NuxtLink>
                 </li>
             </ul>
             <ul>
                 <li>Resources</li>
                 <li>
-                    <NuxtLink to="/faq">FAQ</NuxtLink>
+                    <NuxtLink :to="localePath('/faq')">FAQ</NuxtLink>
                 </li>
                 <li>
                     <a href="https://github.com/Looky1173/Itinerary" rel="noopener noreferrer" target="_blank">GitHub (Itinerary)</a>
@@ -31,22 +31,26 @@
             <ul>
                 <li>Legal</li>
                 <li>
-                    <NuxtLink to="/terms">Terms of Use</NuxtLink>
+                    <NuxtLink :to="localePath('/terms')">Terms of Use</NuxtLink>
                 </li>
                 <li>
-                    <NuxtLink to="/privacy">Privacy Policy</NuxtLink>
+                    <NuxtLink :to="localePath('/privacy')">Privacy Policy</NuxtLink>
                 </li>
             </ul>
         </div>
         <div class="theme">
-            <h4>Choose your theme</h4>
-            <select class="themes" v-model="$colorMode.preference">
+            <h4>{{ $t('global.theme') }}</h4>
+            <select v-model="$colorMode.preference">
                 <option v-for="(color, index) of colors" :key="color" :value="color">{{ themeNames[index] }}</option>
+            </select>
+            <h4>{{ $t('global.language') }}</h4>
+            <select v-model="selectedLanguage" @change="(e) => $i18n.setLocale(e.target.value)">
+                <option v-for="(locale, index) in $i18n.locales" :key="index" :value="locale.code">{{ locale.name }} - ({{ locale.iso }})</option>
             </select>
         </div>
         <div class="disclaimer">
-            <p>Itinerary is not affiliated with Scratch, the Scratch Team, or the Scratch Foundation.</p>
-            <p>Itinerary is an open source project, with styling aspects inspired by <b>Ocular</b> (by <b>@Jeffalo</b>) and the <b>Scratch website</b> (by the <b>Scratch Foundation</b>).</p>
+            <p>{{ $t('footer.affiliation') }}</p>
+            <p v-html="$t('footer.projectNature')"></p>
         </div>
     </div>
 </template>
@@ -56,9 +60,13 @@
         data() {
             return {
                 colors: ['system', 'light', 'dark', 'flame'],
-                themeNames: ['System', 'Light mode', 'Dark mode', 'Flame']
+                themeNames: ['System', 'Light mode', 'Dark mode', 'Flame'],
+                selectedLanguage: '',
             };
-        }
+        },
+        created() {
+            this.selectedLanguage = this.$i18n.locale;
+        },
     };
 </script>
 

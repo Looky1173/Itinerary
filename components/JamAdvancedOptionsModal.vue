@@ -8,9 +8,9 @@
             </div>
         </template>
         <template #actions>
-            <button @click="close()" class="btn" :disabled="disableButtons">Discard edits</button>
-            <button @click="saveAndClose()" class="btn" style="margin-left: 10px" :disabled="disableButtons" v-if="!newJam">Save</button>
-            <button @click="saveAndClose(true)" class="btn btn-primary" style="margin-left: 10px" :disabled="disableButtons">Save and close</button>
+            <button @click="close()" class="btn" :disabled="disableButtons">{{ $t('global.discard') }}</button>
+            <button @click="saveAndClose()" class="btn" style="margin-left: 10px" :disabled="disableButtons" v-if="!newJam">{{ $t('global.save') }}</button>
+            <button @click="saveAndClose(true)" class="btn btn-primary" style="margin-left: 10px" :disabled="disableButtons">{{ $t('global.saveAndClose') }}</button>
         </template>
     </Modal>
 </template>

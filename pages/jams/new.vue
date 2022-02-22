@@ -103,12 +103,12 @@
             },
             async create() {
                 if (!this.jamName || !this.jamText || !this.jamStart || !this.jamEnd) {
-                    this.$notifications.notify({ type: 'error', content: { message: 'Please fill in the required fields!' } });
+                    this.$notifications.notify({ type: 'error', content: { message: this.$t('notifications.global.fillInRequiredFields') } });
                     return;
                 }
 
                 this.createButtonDisabled = true;
-                let loadingNotification = await this.$notifications.notify({ content: { message: 'Bringing your game jam to life...', loading: true }, disableTimeout: true, isCloseable: false });
+                let loadingNotification = await this.$notifications.notify({ content: { message: this.$t('notifications.gameJams.new.creatingGameJam'), loading: true }, disableTimeout: true, isCloseable: false });
 
                 let response = await fetch(`${process.env.backendURL}/api/jams`, {
                     method: 'PUT',
@@ -128,7 +128,7 @@
                 if (response.ok) {
                     this.$router.push(`/jams/${response.slug}`);
                     this.$notifications.removeNotification(loadingNotification);
-                    this.$notifications.notify({ type: 'success', content: { message: 'Your game jam was created successfully!' } });
+                    this.$notifications.notify({ type: 'success', content: { message: this.$t('notifications.gameJams.new.createdGameJam') } });
                 }
             },
             saveAdvancedOptions(event) {

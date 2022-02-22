@@ -2,7 +2,7 @@
     <div :class="`notification ${notification.type} ${closing ? 'closing' : ''}`">
         <Loading v-if="notification.content.loading" type="notification" />
         <div class="message">{{ notification.content.message }}</div>
-        <span v-if="notification.isCloseable" @click="close()" class="close">Close</span>
+        <span v-if="notification.isCloseable" @click="close()" class="close">{{ $t('global.close') }}</span>
     </div>
 </template>
 

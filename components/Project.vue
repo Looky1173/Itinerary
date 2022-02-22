@@ -61,7 +61,7 @@
             },
             handleUpvote() {
                 if (!this.isLoggedIn) {
-                    this.$notifications.notify({ type: 'error', content: { message: 'Please log in to upvote projects!' } });
+                    this.$notifications.notify({ type: 'error', content: { message: this.$t('notifications.gameJams.projects.logInToUpvoteProject') } });
                     return;
                 }
                 this.upvoted ? this.removeUpvote() : this.castUpvote();
@@ -72,7 +72,7 @@
                         `Are you sure you want to remove your submission "${this.data.title}"? The number of upvotes will be reset for this project to 0 as well!\n\n⚠ This operation cannot be undone! ⚠`,
                     )
                 ) {
-                    let loadingNotification = await this.$notifications.notify({ content: { message: 'Removing your submission...', loading: true }, disableTimeout: true, isCloseable: false });
+                    let loadingNotification = await this.$notifications.notify({ content: { message: this.$t('notifications.gameJams.projects.removingProject'), loading: true }, disableTimeout: true, isCloseable: false });
 
                     let res = await fetch(`${process.env.backendURL}/api/jams/${this.data.jam}/projects/${this.data.project}`, {
                         method: 'DELETE',
@@ -85,11 +85,11 @@
                     this.$notifications.removeNotification(loadingNotification);
 
                     if (res.ok) {
-                        this.$notifications.notify({ type: 'success', content: { message: 'Your project was removed from this game jam!' } });
+                        this.$notifications.notify({ type: 'success', content: { message: this.$t('notifications.gameJams.projects.removedProject') } });
                         this.$emit('refresh-projects');
                         this.$emit('vote-cast');
                     } else {
-                        this.$notifications.notify({ type: 'error', content: { message: "Your project couldn't be removed from this game jam!" } });
+                        this.$notifications.notify({ type: 'error', content: { message: this.$t('notifications.gameJams.projects.couldNotRemoveProject') } });
                     }
                 }
             },
@@ -147,7 +147,7 @@
                 this.$emit('vote-cast');
             },
             async selectAsWinner() {
-                let loadingNotification = await this.$notifications.notify({ content: { message: 'Selecting as winner...', loading: true }, disableTimeout: true, isCloseable: false });
+                let loadingNotification = await this.$notifications.notify({ content: { message: this.$t('notifications.gameJams.projects.selectingAsWinner'), loading: true }, disableTimeout: true, isCloseable: false });
 
                 let response = await fetch(`${process.env.backendURL}/api/jams/${this.data.jam}/winners/`, {
                     method: 'PUT',
@@ -162,12 +162,12 @@
                 response = await response.json();
                 this.$notifications.removeNotification(loadingNotification);
                 if (response.ok) {
-                    this.$notifications.notify({ type: 'success', content: { message: "Hooray, we've got a winner!" } });
+                    this.$notifications.notify({ type: 'success', content: { message: this.$t('notifications.gameJams.projects.selectedAsWinner') } });
                     this.$emit('refresh-projects');
                 }
             },
             async revokeWinnerStatus() {
-                let loadingNotification = await this.$notifications.notify({ content: { message: 'Removing winner status...', loading: true }, disableTimeout: true, isCloseable: false });
+                let loadingNotification = await this.$notifications.notify({ content: { message: this.$t('notifications.gameJams.projects.removingWinnerStatus'), loading: true }, disableTimeout: true, isCloseable: false });
 
                 let response = await fetch(`${process.env.backendURL}/api/jams/${this.data.jam}/winners/`, {
                     method: 'DELETE',
@@ -182,7 +182,7 @@
                 response = await response.json();
                 this.$notifications.removeNotification(loadingNotification);
                 if (response.ok) {
-                    this.$notifications.notify({ type: 'success', content: { message: 'Winner status removed from the project.' } });
+                    this.$notifications.notify({ type: 'success', content: { message: this.$t('notifications.gameJams.projects.removedWinnerStatus') } });
                     this.$emit('refresh-projects');
                 }
             },

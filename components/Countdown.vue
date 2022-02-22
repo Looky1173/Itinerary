@@ -2,19 +2,19 @@
     <div class="countdown">
         <div v-if="days" class="countdown-block">
             <div class="countdown-digit">{{ days | twoDigits }}</div>
-            <div class="countdown-text">Days</div>
+            <div class="countdown-text">{{ days == 1 ? $tc('countdown.day', 2) : $tc('countdown.day', 1) }}</div>
         </div>
         <div class="countdown-block">
             <div class="countdown-digit">{{ hours | twoDigits }}</div>
-            <div class="countdown-text">Hours</div>
+            <div class="countdown-text">{{ hours == 1 ? $tc('countdown.hour', 2) : $tc('countdown.hour', 1) }}</div>
         </div>
         <div class="countdown-block">
             <div class="countdown-digit">{{ minutes | twoDigits }}</div>
-            <div class="countdown-text">Minutes</div>
+            <div class="countdown-text">{{ minutes == 1 ? $tc('countdown.minute', 2) : $tc('countdown.minute', 1) }}</div>
         </div>
         <div class="countdown-block">
             <div class="countdown-digit">{{ seconds | twoDigits }}</div>
-            <div class="countdown-text">Seconds</div>
+            <div class="countdown-text">{{ seconds == 1 ? $tc('countdown.second', 2) : $tc('countdown.second', 1) }}</div>
         </div>
     </div>
 </template>

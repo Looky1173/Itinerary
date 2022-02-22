@@ -25,7 +25,7 @@
                             <p>Here are some things you can do:</p>
                             <ul>
                                 <li><a href="https://github.com/Looky1173/Itinerary/issues">Create a new issue suggesting it</a></li>
-                                <li><NuxtLink to="/">Return to the home page</NuxtLink></li>
+                                <li><NuxtLink :to="localePath('/')">Return to the home page</NuxtLink></li>
                                 <li><a href="https://findtheinvisiblecow.com/">Find the invisible cow</a></li>
                                 <li>
                                     <a

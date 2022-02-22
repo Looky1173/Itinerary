@@ -11,7 +11,7 @@
             </div>
             <div class="card" v-if="$auth.user().admin">
                 <h1>Admin tools</h1>
-                <NuxtLink to="/dashboard/users" class="users-link">View all users</NuxtLink>
+                <NuxtLink :to="localePath('/dashboard/users/')" class="users-link">View all users</NuxtLink>
             </div>
         </div>
         <Footer />

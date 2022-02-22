@@ -1,6 +1,6 @@
 <template>
     <span>
-        <NuxtLink v-if="to" :to="to" class="subnav-button"><slot></slot></NuxtLink>
+        <NuxtLink v-if="to" :to="localePath(to)" class="subnav-button"><slot></slot></NuxtLink>
         <button class="subnav-button" v-else><slot></slot></button>
     </span>
 </template>

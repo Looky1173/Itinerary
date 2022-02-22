@@ -3,13 +3,13 @@
         <div class="flex-row banner-container">
             <div class="flex-row banner-content column">
                 <h1 class="banner-header">
-                    <span>Discover and participate in Scratch game jams</span>
+                    <span>{{ $t('welcomeBanner.gameJamSlogan') }}</span>
                     <br />
-                    <span>Embrace the community</span>
+                    <span>{{ $t('welcomeBanner.communitySlogan') }}</span>
                 </h1>
                 <div class="flex-row banner-buttons">
-                    <NuxtLink class="banner-button create-button button" to="/explore">Get started</NuxtLink>
-                    <NuxtLink class="banner-button join-button button" to="/about">Learn more</NuxtLink>
+                    <NuxtLink class="banner-button create-button button" :to="localePath('/explore')">{{ $t('welcomeBanner.start') }}</NuxtLink>
+                    <NuxtLink class="banner-button join-button button" :to="localePath('/about')">{{ $t('welcomeBanner.moreInfo') }}</NuxtLink>
                 </div>
             </div>
             <div class="flex-row intro-video-container">
@@ -18,11 +18,11 @@
         </div>
         <div class="banner-subnav">
             <div class="subnav-container">
-                <NuxtLink to="/about">
-                    <div class="subnav-button">About Itinerary</div>
+                <NuxtLink :to="localePath('/about')">
+                    <div class="subnav-button">{{ $t('footer.aboutTheSite') }}</div>
                 </NuxtLink>
-                <NuxtLink to="/developers">
-                    <div class="subnav-button">For Developers</div>
+                <NuxtLink :to="localePath('/developers')">
+                    <div class="subnav-button">{{ $t('footer.forDevelopers') }}</div>
                 </NuxtLink>
             </div>
         </div>

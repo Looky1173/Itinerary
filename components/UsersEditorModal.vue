@@ -123,7 +123,7 @@
         async mounted() {
             if (this.editingOwnProfile) {
                 this.editingOwnProfileWarningId = await this.$notifications.notify({
-                    content: { message: 'You are editing your own profile; be careful when changing things!' },
+                    content: { message: this.$t('notifications.admin.editingOwnProfile') },
                     type: 'warning',
                     timeout: 5000
                 });

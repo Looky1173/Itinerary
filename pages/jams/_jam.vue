@@ -423,12 +423,16 @@
                 let jamEnd = this.$refs.jamEnd.value;
 
                 if (!jamName || !jamBody || !jamStart || !jamEnd) {
-                    this.$notifications.notify({ type: 'error', content: { message: 'Please fill in the required fields!' } });
+                    this.$notifications.notify({ type: 'error', content: { message: this.$t('notifications.global.fillInRequiredFields') } });
                     return;
                 }
 
                 this.editButtonsDisabled = true;
-                let loadingNotification = await this.$notifications.notify({ content: { message: 'Updating your game jam...', loading: true }, disableTimeout: true, isCloseable: false });
+                let loadingNotification = await this.$notifications.notify({
+                    content: { message: this.$t('notifications.gameJams.updatingGameJam'), loading: true },
+                    disableTimeout: true,
+                    isCloseable: false,
+                });
 
                 let response = await fetch(`${process.env.backendURL}/api/jams/${this.jamSlug}`, {
                     method: 'PUT',
@@ -453,14 +457,18 @@
                         this.loadJam();
                     }
                     this.$notifications.removeNotification(loadingNotification);
-                    this.$notifications.notify({ type: 'success', content: { message: 'Your game jam was updated successfully!' } });
+                    this.$notifications.notify({ type: 'success', content: { message: this.$t('notifications.gameJams.updatedGameJam') } });
                 }
             },
             async deleteJam() {
                 if (
                     confirm(`Are you sure you want to delete the game jam ${this.jamName} (${this.jamSlug}) and all associated submissions, votes, and managers?\n\n⚠ This operation cannot be undone! ⚠`)
                 ) {
-                    let loadingNotification = await this.$notifications.notify({ content: { message: 'Deleting your game jam...', loading: true }, disableTimeout: true, isCloseable: false });
+                    let loadingNotification = await this.$notifications.notify({
+                        content: { message: this.$t('notifications.gameJams.deletingGameJam'), loading: true },
+                        disableTimeout: true,
+                        isCloseable: false,
+                    });
 
                     let res = await fetch(`${process.env.backendURL}/api/jams/${this.jamSlug}`, {
                         method: 'DELETE',
@@ -474,9 +482,9 @@
 
                     if (res.ok) {
                         this.$router.push(`/`);
-                        this.$notifications.notify({ type: 'success', content: { message: 'Your game jam was deleted successfully!' } });
+                        this.$notifications.notify({ type: 'success', content: { message: this.$t('notifications.gameJams.deletedGameJam') } });
                     } else {
-                        this.$notifications.notify({ type: 'error', content: { message: "Your game jam couldn't be deleted!" } });
+                        this.$notifications.notify({ type: 'error', content: { message: this.$t('notifications.gameJams.couldNotDeleteGameJam') } });
                     }
                 }
             },
@@ -508,20 +516,24 @@
             async submitProject() {
                 let projectURL = this.$refs.submission.value;
                 if (!projectURL) {
-                    this.$notifications.notify({ type: 'error', content: { message: 'Please fill in the required fields!' } });
+                    this.$notifications.notify({ type: 'error', content: { message: this.$t('notifications.global.fillInRequiredFields') } });
                     return;
                 }
 
                 let projectRegex = /https:\/\/scratch\.mit\.edu\/projects\/([0-9]+)/i;
                 if (!projectRegex.test(projectURL)) {
-                    this.$notifications.notify({ type: 'error', content: { message: 'The URL entered is invalid!' } });
+                    this.$notifications.notify({ type: 'error', content: { message: this.$t('notifications.global.invalidURL') } });
                     return;
                 }
 
                 let projectId = projectURL.match(projectRegex)[1];
 
                 this.submitProjectButtonDisabled = true;
-                let loadingNotification = await this.$notifications.notify({ content: { message: 'Submitting your project...', loading: true }, disableTimeout: true, isCloseable: false });
+                let loadingNotification = await this.$notifications.notify({
+                    content: { message: this.$t('notifications.gameJams.projects.submittingProject'), loading: true },
+                    disableTimeout: true,
+                    isCloseable: false,
+                });
 
                 let response = await fetch(`${process.env.backendURL}/api/jams/${this.jamSlug}/projects/`, {
                     method: 'PUT',
@@ -538,7 +550,7 @@
                 this.$notifications.removeNotification(loadingNotification);
 
                 if (response.ok) {
-                    this.$notifications.notify({ type: 'success', content: { message: 'Your project was submitted!' } });
+                    this.$notifications.notify({ type: 'success', content: { message: this.$t('notifications.gameJams.projects.submittedProject') } });
                     this.hideSubmissionsModal = true;
 
                     this.fetchProjects();
@@ -648,7 +660,7 @@
                 ) {
                     this.disableLeaveButton = true;
                     let loadingNotification = await this.$notifications.notify({
-                        content: { message: "Removing you from this jam's list of managers...", loading: true },
+                        content: { message: this.$t('notifications.gameJams.managers.givingUpManagerRole'), loading: true },
                         disableTimeout: true,
                         isCloseable: false,
                     });
@@ -665,12 +677,12 @@
                     this.$notifications.removeNotification(loadingNotification);
 
                     if (res.ok) {
-                        this.$notifications.notify({ type: 'success', content: { message: 'You are no longer a manager of this jam.' } });
+                        this.$notifications.notify({ type: 'success', content: { message: this.$t('notifications.gameJams.managers.gaveUpManagerRole') } });
                         this.hideManagersModal = true;
                         this.disableLeaveButton = false;
                         this.loadJam();
                     } else {
-                        this.$notifications.notify({ type: 'error', content: { message: "For some reason, the server couldn't remove your manager role!" } });
+                        this.$notifications.notify({ type: 'error', content: { message: this.$t('notifications.gameJams.managers.couldNotGiveUpManagerRole') } });
                     }
                 }
             },
@@ -681,7 +693,7 @@
                     )
                 ) {
                     let loadingNotification = await this.$notifications.notify({
-                        content: { message: 'Removing manager...', loading: true },
+                        content: { message: this.$t('notifications.gameJams.managers.removingManager'), loading: true },
                         disableTimeout: true,
                         isCloseable: false,
                     });
@@ -698,17 +710,17 @@
                     this.$notifications.removeNotification(loadingNotification);
 
                     if (res.ok) {
-                        this.$notifications.notify({ type: 'success', content: { message: `Removed ${manager}'s manager role for this jam.` } });
+                        this.$notifications.notify({ type: 'success', content: { message: this.$t('notifications.gameJams.managers.removedManager', { manager: manager }) } });
                         this.getManagers();
                     } else {
-                        this.$notifications.notify({ type: 'error', content: { message: `Couldn't remove "${manager}"'s manager role for this jam!` } });
+                        this.$notifications.notify({ type: 'error', content: { message: this.$t('notifications.gameJams.managers.couldNotRemoveManager', { manager: manager }) } });
                     }
                 }
             },
             async addManager() {
                 this.disableAddManagerButton = true;
                 let loadingNotification = await this.$notifications.notify({
-                    content: { message: 'Adding manager...', loading: true },
+                    content: { message: this.$t('notifications.gameJams.managers.addingManager'), loading: true },
                     disableTimeout: true,
                     isCloseable: false,
                 });
@@ -731,7 +743,7 @@
                 this.disableAddManagerButton = false;
 
                 if (response.ok) {
-                    this.$notifications.notify({ type: 'success', content: { message: `Made "${manager}" a manager of this jam!` } });
+                    this.$notifications.notify({ type: 'success', content: { message: this.$t('notifications.gameJams.managers.addedManager', { manager: manager }) } });
                     this.$refs.manager.value = '';
                     this.getManagers();
                 } else {
@@ -754,7 +766,7 @@
                 this.disableAdvancedOptionsButtons = true;
                 this.advancedOptions = event.options;
 
-                let loadingNotification = await this.$notifications.notify({ content: { message: 'Saving advanced options...', loading: true }, disableTimeout: true, isCloseable: false });
+                let loadingNotification = await this.$notifications.notify({ content: { message: this.$t('notifications.gameJams.savingAdvancedOptions'), loading: true }, disableTimeout: true, isCloseable: false });
 
                 let response = await fetch(`${process.env.backendURL}/api/jams/${this.jamSlug}`, {
                     method: 'PUT',
@@ -776,12 +788,12 @@
 
                     this.loadJam();
                     this.$notifications.removeNotification(loadingNotification);
-                    this.$notifications.notify({ type: 'success', content: { message: 'Saved advanced settings!' } });
+                    this.$notifications.notify({ type: 'success', content: { message: this.$t('notifications.gameJams.savedAdvancedOptions') } });
                 }
             },
             async featureJam(unfeature = false) {
                 let loadingNotification = await this.$notifications.notify({
-                    content: { message: unfeature ? 'Unfeaturing game jam...' : 'Featuring game jam...', loading: true },
+                    content: { message: unfeature ? this.$t('notifications.gameJams.unfeaturingGameJam') : this.$t('notifications.gameJams.featuringGameJam'), loading: true },
                     disableTimeout: true,
                     isCloseable: false,
                 });
@@ -800,7 +812,7 @@
                 if (response.ok) {
                     this.$notifications.notify({
                         type: 'success',
-                        content: { message: unfeature ? 'This game jam is no longer featured.' : 'This jam is now featured, so it will appear on the front page!' },
+                        content: { message: unfeature ? this.$t('notifications.gameJams.unfeaturedGameJam') : this.$t('notifications.gameJams.featuredGameJam') },
                     });
                     this.loadJam();
                 } else {

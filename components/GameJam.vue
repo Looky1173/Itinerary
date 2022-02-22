@@ -1,5 +1,5 @@
 <template>
-    <NuxtLink :to="'/jams/' + data.slug">
+    <NuxtLink :to="localePath('/jams/' + data.slug)">
         <div class="card dark">
             <div class="cover-image" :style="{ backgroundImage: `url(${data.content.headerImage || backgroundImage})` }">
                 <div class="blur">

@@ -3,17 +3,17 @@
         <div class="wrapper">
             <div class="navigation-general">
                 <div class="navigation-group">
-                    <NuxtLink to="/" class="navigation-item hoverable link"><img src="/img/Itinerary.svg" width="30" /> Home</NuxtLink>
-                    <NuxtLink to="/about" class="navigation-item hoverable link"> About </NuxtLink>
-                    <NuxtLink to="/explore" class="navigation-item hoverable link"> Explore </NuxtLink>
-                    <NuxtLink to="/developers" class="navigation-item hoverable link"> Developers </NuxtLink>
+                    <NuxtLink :to="localePath('/')" class="navigation-item hoverable link"><img src="/img/Itinerary.svg" width="30" /> {{ $t('navigation.home') }}</NuxtLink>
+                    <NuxtLink :to="localePath('/about')" class="navigation-item hoverable link">{{ $t('navigation.about') }}</NuxtLink>
+                    <NuxtLink :to="localePath('/explore')" class="navigation-item hoverable link">{{ $t('navigation.explore') }}</NuxtLink>
+                    <NuxtLink :to="localePath('/developers')" class="navigation-item hoverable link">{{ $t('navigation.developers') }}</NuxtLink>
                 </div>
                 <div class="navigation-divider"></div>
                 <div class="navigation-item">
                     <a href="https://scratch.mit.edu/users/Looky1173/#comments" rel="noopener noreferrer" target="_blank" class="navigation-feedback">
                         <span class="navigation-button outlined" role="button">
                             <div class="button-content">
-                                <span>Feedback</span>
+                                <span>{{ $t('navigation.feedback') }}</span>
                             </div>
                         </span>
                     </a>
@@ -21,19 +21,19 @@
             </div>
             <div class="navigation-account">
                 <div class="account" v-if="isLoggedIn">
-                    <div ref="new-stuff-button" class="navigation-item hoverable link">New</div>
-                    <NuxtLink to="/dashboard">
+                    <div ref="new-stuff-button" class="navigation-item hoverable link">{{ $t('navigation.create') }}</div>
+                    <NuxtLink :to="localePath('/dashboard')">
                         <div class="navigation-item hoverable link"><img :src="`${backendURL}/api/user/${$auth.user().name}/picture`" class="profile-picture" />{{ $auth.user().name }}</div>
                     </NuxtLink>
                     <div class="navigation-divider"></div>
-                    <a @click="logout()" class="navigation-item hoverable link">Logout</a>
+                    <a @click="logout()" class="navigation-item hoverable link">{{ $t('navigation.logOut') }}</a>
                 </div>
-                <NuxtLink to="/login" class="navigation-item hoverable link" v-else>Login</NuxtLink>
+                <NuxtLink :to="localePath('/login')" class="navigation-item hoverable link" v-else>{{ $t('navigation.logIn') }}</NuxtLink>
             </div>
         </div>
         <div class="dropdowns">
             <Dropdown :reference="'new-stuff-button'" placement="bottom-end" class="rounded-bottom">
-                <NuxtLink to="/jams/new" class="dropdown-item hoverable">Scratch Game Jam</NuxtLink>
+                <NuxtLink :to="localePath('/jams/new/')" class="dropdown-item hoverable">Scratch Game Jam</NuxtLink>
             </Dropdown>
         </div>
     </div>
@@ -56,7 +56,7 @@
                 this.$router.push({
                     path: '/',
                 });
-                this.$notifications.notify({ content: { message: 'You have been logged out.' }, timeout: 5000 });
+                this.$notifications.notify({ content: { message: this.$t('notifications.auth.loggedOut') }, timeout: 5000 });
             },
         },
     };

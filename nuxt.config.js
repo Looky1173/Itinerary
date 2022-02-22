@@ -1,17 +1,20 @@
 export default {
     // Global page headers: https://go.nuxtjs.dev/config-head
-    head: {
-        title: 'Itinerary',
-        htmlAttrs: {
-            lang: 'en',
-        },
-        meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { hid: 'description', name: 'description', content: '' }],
-        link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-        script: [
-            {
-                src: '/js/counterAnalytics.js',
+    head() {
+        const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true });
+        return {
+            title: 'Itinerary',
+            htmlAttrs: {
+                ...i18nHead.htmlAttrs,
             },
-        ],
+            meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { hid: 'description', name: 'description', content: '' }, ...i18nHead.meta],
+            link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }, ...i18nHead.link],
+            script: [
+                {
+                    src: '/js/counterAnalytics.js',
+                },
+            ],
+        };
     },
 
     // Global CSS: https://go.nuxtjs.dev/config-css
@@ -31,7 +34,7 @@ export default {
     buildModules: ['@nuxtjs/color-mode'],
 
     // Modules: https://go.nuxtjs.dev/config-modules
-    modules: ['@nuxtjs/markdownit'],
+    modules: ['@nuxtjs/markdownit', '@nuxtjs/i18n'],
 
     markdownit: {
         runtime: true, // Support `$md()`
@@ -44,5 +47,27 @@ export default {
         color: 'white',
         height: '3px',
         throttle: 300,
+    },
+
+    i18n: {
+        locales: [
+            {
+                code: 'en',
+                iso: 'en-GB',
+                file: 'en-GB.js',
+                name: 'English',
+            },
+            {
+                code: 'hu',
+                iso: 'hu-HU',
+                file: 'hu-HU.js',
+                name: 'Magyar',
+            },
+        ],
+        lazy: true,
+        langDir: 'lang/',
+        defaultLocale: 'en',
+        baseUrl: 'https://itinerary.eu.org',
+        vueI18n: { fallbackLocale: 'en' },
     },
 };
