@@ -4,8 +4,8 @@
         <WelcomeBanner />
         <div class="content">
             <div class="card">
-                <h2>Featured game jams</h2>
-                <Loading v-if="loadingJams" message="Fetching game jams..." />
+                <h2>{{ $t('index.featuredGameJams') }}</h2>
+                <Loading v-if="loadingJams" :message="$t('loaders.loadingGameJams')" />
                 <hooper v-if="!loadingJams" :trimWhiteSpace="true" :settings="hooperSettings" class="carousel">
                     <slide v-for="(jam, index) in jams" :key="jam.slug"><GameJam :data="jam" :class="{ first: index === 0, last: jams.length - 1 === index }" /></slide>
 
@@ -14,13 +14,10 @@
             </div>
             <div class="card">
                 <p>
-                    <strong>Welcome to Itinerary!</strong>
+                    <strong>{{ $t('index.welcome') }}</strong>
                 </p>
                 <br />
-                <p>
-                    You can follow and contribute to the development of Itinerary at the official <a href="https://github.com/Looky1173/Itinerary">Itinerary</a> and
-                    <a href="https://github.com/Looky1173/Itinerary-Server">Itinerary-Server</a> GitHub repositories.
-                </p>
+                <p v-html="$t('index.contribute')"></p>
             </div>
         </div>
         <Footer />

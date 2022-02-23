@@ -4,7 +4,7 @@
             <div class="spinner"></div>
         </div>
         <div class="message" v-if="type != 'notification'">
-            <span>{{ message || 'Loading...' }}</span>
+            <span>{{ message || $t('loaders.loading') }}</span>
         </div>
     </div>
 </template>

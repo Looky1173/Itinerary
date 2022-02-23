@@ -9,24 +9,26 @@
             :disableButtons="disableAdvancedOptionsButtons"
         />
         <Modal :isOpen="!hideManagersModal" :hideSubHeader="false" @close="hideManagersModal = true" class="edit-managers-modal">
-            <template #header>Edit managers</template>
+            <template #header>{{ $t('gameJam.managers.editManagers') }}</template>
             <template #sub-header>
                 <div style="display: flex; align-items: center">
-                    <h3 style="margin: 0">{{ isAdmin === true ? 'You are an administrator' : isManager ? 'You are a manager of this jam' : '' }}</h3>
-                    <button v-if="isManager" @click="giveUpManagerRole()" :disabled="disableLeaveButton" class="btn btn-danger" style="margin-left: auto">Leave</button>
+                    <h3 style="margin: 0">{{ isAdmin === true ? $t('gameJam.managers.userIsAdministrator') : isManager ? $t('gameJam.managers.userIsManager') : '' }}</h3>
+                    <button v-if="isManager" @click="giveUpManagerRole()" :disabled="disableLeaveButton" class="btn btn-danger" style="margin-left: auto">{{ $t('gameJam.managers.leave') }}</button>
                 </div>
             </template>
             <template>
                 <div class="modal-inner">
-                    <Loading v-if="loadingManagers" message="Loading managers..." />
+                    <Loading v-if="loadingManagers" :message="$t('loaders.loadingManagers')" />
                     <div v-else>
-                        <p v-if="managers.length == 0">No managers yet... add people below!</p>
+                        <p v-if="managers.length == 0">{{ $t('gameJam.managers.noManagers') }}</p>
                         <Manager @remove-manager="removeManager" v-for="(manager, index) in managers" :key="index" :manager="manager" />
                         <hr />
                         <div style="display: flex; align-items: flex-end">
                             <div style="width: 100%">
                                 <label for="add-manager" class="input-label"
-                                    ><span class="required-wrapper">Username <span class="pill danger">Required</span></span></label
+                                    ><span class="required-wrapper"
+                                        >{{ $t('gameJam.managers.username') }} <span class="pill danger">{{ $t('forms.required') }}</span></span
+                                    ></label
                                 >
                                 <input
                                     :disabled="disableAddManagerButton"
@@ -36,7 +38,7 @@
                                     class="input"
                                     autocapitalize="off"
                                     autocorrect="off"
-                                    placeholder="Username of the manager to add"
+                                    :placeholder="$t('gameJam.managers.managerToAdd')"
                                     ref="manager"
                                 />
                             </div>
@@ -50,96 +52,97 @@
                 </div>
             </template>
             <template #actions>
-                <button @click="hideManagersModal = true" class="btn">Close</button>
+                <button @click="hideManagersModal = true" class="btn">{{ $t('global.close') }}</button>
             </template>
         </Modal>
         <Modal :isOpen="!hideSubmissionsModal" :hideSubHeader="true" @close="hideSubmissionsModal = true">
-            <template #header>Enter the game jam</template>
+            <template #header>{{ $t('gameJam.participating.enterGameJam') }}</template>
             <template>
                 <div class="modal-inner">
                     <label for="submission-project" class="input-label"
-                        ><span class="required-wrapper">Game URL <span class="pill danger">Required</span></span></label
+                        ><span class="required-wrapper"
+                            >{{ $t('gameJam.participating.gameURL') }} <span class="pill danger">{{ $t('forms.required') }}</span></span
+                        ></label
                     >
-                    <input type="url" id="submission-project" class="input" autocapitalize="off" autocorrect="off" placeholder="Paste in the URL of your Scratch game" ref="submission" />
+                    <input type="url" id="submission-project" class="input" autocapitalize="off" autocorrect="off" :placeholder="$t('gameJam.participating.gameURLPlaceholder')" ref="submission" />
                 </div>
             </template>
             <template #actions>
-                <button :disabled="submitProjectButtonDisabled" @click="hideSubmissionsModal = true" class="btn">Cancel</button>
-                <button :disabled="submitProjectButtonDisabled" @click="submitProject()" class="btn btn-primary" style="margin-left: 10px">Submit</button>
+                <button :disabled="submitProjectButtonDisabled" @click="hideSubmissionsModal = true" class="btn">{{ $t('global.cancel') }}</button>
+                <button :disabled="submitProjectButtonDisabled" @click="submitProject()" class="btn btn-primary" style="margin-left: 10px">{{ $t('global.submit') }}</button>
             </template>
         </Modal>
         <Modal :isOpen="!hideEditModal" :hideSubHeader="true" @close="hideEditModal = true">
-            <template #header>Edit this game jam</template>
+            <template #header>{{ $t('gameJam.new.editGameJam') }}</template>
             <template>
                 <div class="modal-inner">
                     <label for="jam-name" class="input-label"
-                        ><span class="required-wrapper">Name <span class="pill danger">Required</span></span></label
+                        ><span class="required-wrapper"
+                            >{{ $t('gameJam.new.name') }} <span class="pill danger">{{ $t('forms.required') }}</span></span
+                        ></label
                     >
-                    <input type="text" id="jam-name" class="input" autocapitalize="off" autocorrect="off" placeholder="Give the game jam a short and catchy title" :value="jamName" ref="jamName" />
+                    <input type="text" id="jam-name" class="input" autocapitalize="off" autocorrect="off" :placeholder="$t('gameJam.new.namePlaceholder')" :value="jamName" ref="jamName" />
                     <hr />
-                    <label for="jam-description" class="input-label">Description</label>
+                    <label for="jam-description" class="input-label">{{ $t('gameJam.new.description') }}</label>
                     <textarea
                         style="height: 6rem; resize: vertical"
                         type="text"
                         id="jam-description"
                         class="input"
-                        placeholder="Describe the game jam briefly. This description will be public even before the jam goes live so make sure to not give too much away."
+                        :placeholder="$t('gameJam.new.descriptionPlaceholder')"
                         :value="jamDescription"
                         ref="jamDescription"
                     ></textarea>
                     <label for="jam-text" class="input-label">
-                        <span class="required-wrapper">Text <span class="pill danger">Required</span></span>
+                        <span class="required-wrapper"
+                            >{{ $t('gameJam.new.body') }} <span class="pill danger">{{ $t('forms.required') }}</span></span
+                        >
                     </label>
                     <Tabs>
-                        <Tab title="Markdown">
+                        <Tab :title="$t('gameJam.new.markdown')">
                             <textarea
                                 style="height: 12rem; resize: vertical"
                                 type="text"
                                 id="jam-text"
                                 class="input"
-                                placeholder="Elaborate on the description. Explain the theme of the game jam, the rules & requirements, the prize, etc... "
+                                :placeholder="$t('gameJam.new.bodyPlaceholder')"
                                 ref="TEMPjamBody"
                                 v-model="TEMPjamBody"
                             ></textarea></Tab
-                        ><Tab title="Preview">
-                            <div v-html="$md.render(TEMPjamBody ? TEMPjamBody : '*There is nothing to see here... yet!*')"></div>
+                        ><Tab :title="$t('gameJam.new.markdownPreview')">
+                            <div v-html="$md.render(TEMPjamBody ? TEMPjamBody : $t('gameJam.new.noBody'))"></div>
                         </Tab>
                     </Tabs>
-                    <label for="jam-image" class="input-label">Image</label>
-                    <input
-                        type="text"
-                        id="jam-image"
-                        class="input"
-                        autocapitalize="off"
-                        autocorrect="off"
-                        placeholder="A link to the image (thumbnail) that represents your game jam."
-                        :value="jamImage"
-                        ref="jamImage"
-                    />
+                    <label for="jam-image" class="input-label">{{ $t('gameJam.new.image') }}</label>
+                    <input type="text" id="jam-image" class="input" autocapitalize="off" autocorrect="off" :placeholder="$t('gameJam.new.imagePlaceholder')" :value="jamImage" ref="jamImage" />
                     <div class="dates">
                         <div>
                             <label for="jam-start" class="input-label"
-                                ><span class="required-wrapper">Start <span class="pill danger">Required</span></span></label
+                                ><span class="required-wrapper"
+                                    >{{ $t('gameJam.new.start') }} <span class="pill danger">{{ $t('forms.required') }}</span></span
+                                ></label
                             >
-                            <input type="datetime-local" id="jam-start" class="input" placeholder="When the game jam should start." :value="getDateString(jamStart)" ref="jamStart" />
+                            <input type="datetime-local" id="jam-start" class="input" :placeholder="$t('gameJam.new.startPlaceholder')" :value="getDateString(jamStart)" ref="jamStart" />
                         </div>
                         <div>
                             <label for="jam-end" class="input-label"
-                                ><span class="required-wrapper">End <span class="pill danger">Required</span></span></label
+                                ><span class="required-wrapper"
+                                    >{{ $t('gameJam.new.end') }} <span class="pill danger">{{ $t('forms.required') }}</span></span
+                                ></label
                             >
-                            <input type="datetime-local" id="jam-end" class="input" placeholder="When the game jam should end." :value="getDateString(jamEnd)" ref="jamEnd" />
+                            <input type="datetime-local" id="jam-end" class="input" :placeholder="$t('gameJam.new.endPlaceholder')" :value="getDateString(jamEnd)" ref="jamEnd" />
                         </div>
                     </div>
                 </div>
             </template>
             <template #actions>
-                <button :disabled="editButtonsDisabled" @click="hideEditModal = true" class="btn">Discard edits</button>
-                <button :disabled="editButtonsDisabled" @click="updateJam()" class="btn btn-primary" style="margin-left: 10px">Update game jam</button>
+                <button :disabled="editButtonsDisabled" @click="hideEditModal = true" class="btn">{{ $t('global.discard') }}</button>
+                <button :disabled="editButtonsDisabled" @click="updateJam()" class="btn btn-primary" style="margin-left: 10px">{{ $t('global.saveAndClose') }}</button>
             </template>
         </Modal>
         <div class="content" v-if="loadingJam">
             <div class="card">
-                <Loading message="Loading game jam..." />
+                <Loading :message="$t('loaders.loadingGameJam')" />
             </div>
         </div>
         <div v-if="!loadingJam">
@@ -147,14 +150,14 @@
                 <div class="header">
                     <div class="blur">
                         <h2 style="display: inline-flex; align-items: center">
-                            {{ jamName }} ({{ jamSlug }}) <span v-if="jamFeatured" class="pill success" style="margin-left: 0.5rem">Featured</span>
+                            {{ jamName }} ({{ jamSlug }}) <span v-if="jamFeatured" class="pill success" style="margin-left: 0.5rem">{{ $t('gameJam.status.featured') }}</span>
                         </h2>
                         <p>
                             {{ jamDescription }}
                         </p>
                     </div>
                     <div class="blur" id="jam-countdown">
-                        <h3>{{ jamStatus }}</h3>
+                        <h3>{{ getJamStatus }}</h3>
                         <Countdown id="countdown" :date="countdown" v-if="countdown" @on-finish="loadJam()" />
                     </div>
                 </div>
@@ -163,24 +166,24 @@
                 <div class="jam-content">
                     <div class="card jam-info">
                         <div v-if="isLoggedIn">
-                            <h3>You may cast {{ remainingVotes }} more vote{{ remainingVotes != 1 ? 's' : '' }}</h3>
+                            <h3>{{ remainingVotes != 1 ? $tc('gameJam.status.remainingVotes', 1, { votes: remainingVotes }) : $tc('gameJam.status.remainingVotes', 2, { votes: remainingVotes }) }}</h3>
                             <hr />
                             <h3>
                                 {{
                                     hasParticipated === true
-                                        ? 'You have entered this game jam.'
+                                        ? $t('gameJam.status.enteredJam')
                                         : hasParticipated === false
-                                        ? jamStatus == 'Ending in'
-                                            ? 'Submit your project below!'
-                                            : 'This jam is currently not accepting submissions.'
-                                        : 'Loading...'
+                                        ? jamStatus == 0
+                                            ? $t('gameJam.status.hasNotEnteredJam')
+                                            : $t('gameJam.status.notAcceptingProjects')
+                                        : $t('loaders.loading')
                                 }}
                             </h3>
                             <div class="action-buttons">
                                 <button @click="hideSubmissionsModal = false" :disabled="hasParticipated === null ? true : !enableSubmissions" class="btn btn-primary btn-full">
-                                    {{ hasParticipated === null ? 'Loading...' : 'Submit your creation' }}
+                                    {{ hasParticipated === null ? $t('loaders.loading') : $t('gameJam.actions.submitProject') }}
                                 </button>
-                                <button v-if="isAdmin || isManager" ref="admin-options" class="btn admin-options" title="Options">
+                                <button v-if="isAdmin || isManager" ref="admin-options" class="btn admin-options" :title="$t('gameJam.actions.optionsTitle')">
                                     <span class="btn-icon">
                                         <Icon name="vertical-dots" />
                                     </span>
@@ -193,41 +196,43 @@
                                         :options="{ modifiers: [{ name: 'offset', options: { offset: [0, 10] } }] }"
                                         class="rounded"
                                     >
-                                        <li class="dropdown-item hoverable" @click="openEditModal()">Edit game jam</li>
-                                        <li class="dropdown-item hoverable" @click="hideManagersModal = false">Edit managers</li>
+                                        <li class="dropdown-item hoverable" @click="openEditModal()">{{ $t('gameJam.new.editGameJam') }}</li>
+                                        <li class="dropdown-item hoverable" @click="hideManagersModal = false">{{ $t('gameJam.managers.editManagers') }}</li>
                                         <div class="divider"></div>
-                                        <li class="dropdown-item hoverable" @click="showAdvancedOptions = true">Advanced options</li>
-                                        <li v-if="isAdmin && !loadingJam && !jamFeatured" class="dropdown-item hoverable" @click="featureJam()">Feature game jam</li>
+                                        <li class="dropdown-item hoverable" @click="showAdvancedOptions = true">{{ $t('gameJam.actions.advancedOptions') }}</li>
+                                        <li v-if="isAdmin && !loadingJam && !jamFeatured" class="dropdown-item hoverable" @click="featureJam()">{{ $t('gameJam.actions.featureGameJam') }}</li>
                                         <div class="divider"></div>
                                         <li
                                             class="dropdown-item hoverable danger disabled"
                                             title="This feature is not implemented yet. We are working on it and it should be available in the near future."
                                         >
-                                            Clear all votes
+                                            {{ $t('gameJam.actions.clearVotes') }}
                                         </li>
                                         <li
                                             class="dropdown-item hoverable danger disabled"
                                             title="This feature is not implemented yet. We are working on it and it should be available in the near future."
                                         >
-                                            Clear all submissions
+                                            {{ $t('gameJam.actions.clearProjects') }}
                                         </li>
-                                        <li v-if="isAdmin && !loadingJam && jamFeatured" class="dropdown-item hoverable danger" @click="featureJam(true)">Unfeature game jam</li>
-                                        <li v-if="isAdmin" class="dropdown-item hoverable danger" @click="deleteJam()">Delete game jam</li>
+                                        <li v-if="isAdmin && !loadingJam && jamFeatured" class="dropdown-item hoverable danger" @click="featureJam(true)">
+                                            {{ $t('gameJam.actions.unfeatureGameJam') }}
+                                        </li>
+                                        <li v-if="isAdmin" class="dropdown-item hoverable danger" @click="deleteJam()">{{ $t('gameJam.actions.deleteGameJam') }}</li>
                                     </Dropdown>
                                 </div>
                             </div>
                         </div>
                         <div v-else>
-                            <h3>Log in to participate!</h3>
-                            <p>Once you've logged in, you will be able to upvote projects and submit your own ones.</p>
+                            <h3>{{ $t('gameJam.participating.authTitle') }}</h3>
+                            <p>{{ $t('gameJam.participating.authBenefits') }}</p>
                             <br />
-                            <button @click="$router.push('/login')" class="btn btn-full">Login</button>
+                            <button @click="$router.push('/login')" class="btn btn-full">{{ $t('navigation.logIn') }}</button>
                         </div>
                     </div>
                     <div class="jam-body">
-                        <div v-if="jamStatus == 'Ended'" class="card">
-                            <h3>Winners</h3>
-                            <Loading v-if="loadingWinners" message="Loading winners..." />
+                        <div v-if="jamStatus == 1" class="card">
+                            <h3>{{ $t('gameJam.winners') }}</h3>
+                            <Loading v-if="loadingWinners" :message="$t('loaders.loadingWinners')" />
                             <div v-if="!loadingWinners && winners.length > 0">
                                 <br />
                                 <div class="projects">
@@ -247,32 +252,28 @@
                                 </div>
                                 <br />
                             </div>
-                            <p v-if="!loadingWinners && winners.length < 1">No winners yet. Try upvoting some projects!</p>
+                            <p v-if="!loadingWinners && winners.length < 1">{{ $t('gameJam.noWinners') }}</p>
                         </div>
                         <Tabs>
-                            <Tab title="About this jam">
+                            <Tab :title="$t('gameJam.about')">
                                 <div class="card">
                                     <div class="card dark mystery-info" v-if="showMysteryBanner">
                                         <div style="margin-right: 20px; width: 2rem; height: 2rem">
                                             <Icon name="visibility-off" class="icon" style="width: 100%; height: 100%" />
                                         </div>
                                         <div>
-                                            <h3>Mystery mode is enabled</h3>
+                                            <h3>{{ $t('gameJam.options.mysteryEnabled') }}</h3>
                                             <p>
-                                                {{
-                                                    isAdmin || isManager
-                                                        ? 'Only managers (and admins) can see this description until the jam starts'
-                                                        : 'This jam is scheduled to start in the future. Therefore, the description is hidden to guarantee a fair start for everyone.'
-                                                }}
+                                                {{ isAdmin || isManager ? $t('gameJam.options.mysteryAdminInfo') : $t('gameJam.options.mysteryPublicInfo') }}
                                             </p>
                                         </div>
                                     </div>
-                                    <div v-html="$md.render(jamBody ? jamBody : '*Uh, oh! No body was provided for this game jam.*')"></div>
+                                    <div v-html="$md.render(jamBody ? jamBody : $t('gameJam.noBodyProvided'))"></div>
                                 </div>
                             </Tab>
                             <Tab :title="submissionsTitle">
                                 <div class="card">
-                                    <Loading v-if="loadingProjects" message="Loading projects..." />
+                                    <Loading v-if="loadingProjects" :message="$t('loaders.loadingProjects')" />
                                     <div v-if="!loadingProjects" class="projects">
                                         <Project
                                             @vote-cast="getRemainingVotes()"
@@ -288,7 +289,7 @@
                                             :isManager="isManager"
                                         />
                                     </div>
-                                    <p v-if="!loadingProjects && projects.length < 1">No projects. Be the first to submit one!</p>
+                                    <p v-if="!loadingProjects && projects.length < 1">{{ $t('gameJam.noProjects') }}</p>
                                 </div>
                             </Tab>
                         </Tabs>
@@ -332,7 +333,7 @@
                 submitProjectButtonDisabled: false,
                 projects: null,
                 loadingProjects: true,
-                submissionsTitle: `Submissions <span class="pill" style="margin-left: 5px;">Loading...</span>`,
+                submissionsTitle: `${this.$t('gameJam.submissions')} <span class="pill" style="margin-left: 5px;">Loading...</span>`,
                 remainingVotes: null,
                 hasParticipated: null,
                 loadingWinners: true,
@@ -353,7 +354,10 @@
                 return this.projects;
             },
             showMysteryBanner() {
-                return this.advancedOptions?.['enableMystery'] && this.jamStatus == 'Starting in';
+                return this.advancedOptions?.['enableMystery'] && this.jamStatus == -1;
+            },
+            getJamStatus() {
+                return this.jamStatus === -1 ? this.$t('gameJam.status.upcoming') : this.jamStatus === 0 ? this.$t('gameJam.status.ongoing') : this.$t('gameJam.status.over');
             },
         },
         methods: {
@@ -398,7 +402,7 @@
                 this.isLoggedIn && this.getUserData();
                 this.isLoggedIn && this.getManagers();
 
-                if (this.jamStatus == 'Ended') {
+                if (this.jamStatus == 1) {
                     this.loadWinners();
                 }
             },
@@ -492,15 +496,15 @@
                 let today = new Date().toISOString();
 
                 if ((this.jamStart && new Date(this.jamStart).toISOString()) > today) {
-                    this.jamStatus = 'Starting in';
+                    this.jamStatus = -1;
                     this.countdown = new Date(this.jamStart);
                     this.enableSubmissions = false;
                 } else if ((this.jamStart && new Date(this.jamStart).toISOString()) <= today && today < (this.jamEnd && new Date(this.jamEnd).toISOString())) {
-                    this.jamStatus = 'Ending in';
+                    this.jamStatus = 0;
                     this.countdown = new Date(this.jamEnd);
                     this.enableSubmissions = true;
                 } else {
-                    this.jamStatus = 'Ended';
+                    this.jamStatus = 1;
                     this.countdown = null;
                     this.enableSubmissions = false;
                 }
@@ -574,7 +578,7 @@
                 response = await response.json();
 
                 this.projects = response;
-                this.submissionsTitle = `Submissions <span class="pill" style="margin-left: 5px;">${this.projects.length}</span>`;
+                this.submissionsTitle = `${this.$t('gameJam.submissions')} <span class="pill" style="margin-left: 5px;">${this.projects.length}</span>`;
 
                 let promises = Object.keys(this.projects).map((k) => {
                     return new Promise((res, rej) => {
@@ -612,7 +616,7 @@
                 this.hasParticipated = response.ok.hasParticipated;
                 if (this.hasParticipated === true) {
                     this.enableSubmissions = false;
-                } else if (this.jamStatus == 'Ending in') {
+                } else if (this.jamStatus == 0) {
                     this.enableSubmissions = true;
                 }
             },
@@ -655,9 +659,7 @@
                 });
             },
             async giveUpManagerRole() {
-                if (
-                    confirm(`Are you sure you want give up your manager role in this game jam (${this.jamName} - ${this.jamSlug})?\n\n⚠ You will no longer have access to manager options in this jam! ⚠`)
-                ) {
+                if (confirm(this.$t('gameJam.managers.giveUpRoleConfirmation', { jam: this.jamName, jamSlug: this.jamSlug }))) {
                     this.disableLeaveButton = true;
                     let loadingNotification = await this.$notifications.notify({
                         content: { message: this.$t('notifications.gameJams.managers.givingUpManagerRole'), loading: true },
@@ -687,11 +689,7 @@
                 }
             },
             async removeManager(manager) {
-                if (
-                    confirm(
-                        `Are you sure you want to remove the manager role of "${manager}" for this game jam (${this.jamName} - ${this.jamSlug})?\n\n⚠ They will no longer have access to manager options! ⚠`,
-                    )
-                ) {
+                if (confirm(this.$t('gameJam.managers.removeManagerConfirmation', { manager: manager, jam: this.jamName, jamSlug: this.jamSlug }))) {
                     let loadingNotification = await this.$notifications.notify({
                         content: { message: this.$t('notifications.gameJams.managers.removingManager'), loading: true },
                         disableTimeout: true,
@@ -766,7 +764,11 @@
                 this.disableAdvancedOptionsButtons = true;
                 this.advancedOptions = event.options;
 
-                let loadingNotification = await this.$notifications.notify({ content: { message: this.$t('notifications.gameJams.savingAdvancedOptions'), loading: true }, disableTimeout: true, isCloseable: false });
+                let loadingNotification = await this.$notifications.notify({
+                    content: { message: this.$t('notifications.gameJams.savingAdvancedOptions'), loading: true },
+                    disableTimeout: true,
+                    isCloseable: false,
+                });
 
                 let response = await fetch(`${process.env.backendURL}/api/jams/${this.jamSlug}`, {
                     method: 'PUT',

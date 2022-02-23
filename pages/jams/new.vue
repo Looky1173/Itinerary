@@ -5,75 +5,72 @@
         <div class="content">
             <div class="card">
                 <div v-if="isAdmin">
-                    <h1>Create a new Game Jam</h1>
+                    <h1>{{ $t('gameJam.new.createGameJam') }}</h1>
                     <br />
                     <label for="jam-name" class="input-label"
-                        ><span class="required-wrapper">Name <span class="pill danger">Required</span></span></label
+                        ><span class="required-wrapper"
+                            >{{ $t('gameJam.new.name') }} <span class="pill danger">{{ $t('forms.required') }}</span></span
+                        ></label
                     >
-                    <input type="text" id="jam-name" class="input" autocapitalize="off" autocorrect="off" placeholder="Give the game jam a short and catchy title" v-model="jamName" />
+                    <input type="text" id="jam-name" class="input" autocapitalize="off" autocorrect="off" :placeholder="$t('gameJam.new.namePlaceholder')" v-model="jamName" />
                     <hr />
-                    <label for="jam-description" class="input-label">Description</label>
+                    <label for="jam-description" class="input-label">{{ $t('gameJam.new.description') }}</label>
                     <textarea
                         style="height: 6rem; resize: vertical"
                         type="text"
                         id="jam-description"
                         class="input"
-                        placeholder="Describe the game jam briefly. This description will be public even before the jam goes live so make sure to not give too much away."
+                        :placeholder="$t('gameJam.new.descriptionPlaceholder')"
                         v-model="jamDescription"
                     ></textarea>
                     <label for="jam-text" class="input-label">
-                        <span class="required-wrapper">Text <span class="pill danger">Required</span></span>
+                        <span class="required-wrapper"
+                            >{{ $t('gameJam.new.body') }} <span class="pill danger">{{ $t('forms.required') }}</span></span
+                        >
                     </label>
                     <Tabs>
-                        <Tab title="Markdown">
+                        <Tab :title="$t('gameJam.new.markdown')">
                             <textarea
                                 style="height: 12rem; resize: vertical"
                                 type="text"
                                 id="jam-text"
                                 class="input"
-                                placeholder="Elaborate on the description. Explain the theme of the game jam, the rules & requirements, the prize, etc... "
+                                :placeholder="$t('gameJam.new.bodyPlaceholder')"
                                 v-model="jamText"
                             ></textarea></Tab
-                        ><Tab title="Preview">
-                            <div v-html="$md.render(jamText ? jamText : '*There is nothing to see here... yet!*')"></div>
+                        ><Tab :title="$t('gameJam.new.markdownPreview')">
+                            <div v-html="$md.render(jamText ? jamText : $t('gameJam.new.noBody'))"></div>
                         </Tab>
                     </Tabs>
-                    <label for="jam-image" class="input-label">Image</label>
-                    <input
-                        type="text"
-                        id="jam-image"
-                        class="input"
-                        autocapitalize="off"
-                        autocorrect="off"
-                        placeholder="A link to the image (thumbnail) that represents your game jam."
-                        v-model="jamImage"
-                    />
+                    <label for="jam-image" class="input-label">{{ $t('gameJam.new.image') }}</label>
+                    <input type="text" id="jam-image" class="input" autocapitalize="off" autocorrect="off" :placeholder="$t('gameJam.new.imagePlaceholder')" v-model="jamImage" />
                     <div class="dates">
                         <div>
                             <label for="jam-start" class="input-label"
-                                ><span class="required-wrapper">Start <span class="pill danger">Required</span></span></label
+                                ><span class="required-wrapper"
+                                    >{{ $t('gameJam.new.start') }} <span class="pill danger">{{ $t('forms.required') }}</span></span
+                                ></label
                             >
-                            <input type="datetime-local" id="jam-start" class="input" placeholder="When the game jam should start." v-model="jamStart" />
+                            <input type="datetime-local" id="jam-start" class="input" :placeholder="$t('gameJam.new.startPlaceholder')" v-model="jamStart" />
                         </div>
                         <div>
                             <label for="jam-end" class="input-label"
-                                ><span class="required-wrapper">End <span class="pill danger">Required</span></span></label
+                                ><span class="required-wrapper"
+                                    >{{ $t('gameJam.new.end') }} <span class="pill danger">{{ $t('forms.required') }}</span></span
+                                ></label
                             >
-                            <input type="datetime-local" id="jam-end" class="input" placeholder="When the game jam should end." v-model="jamEnd" />
+                            <input type="datetime-local" id="jam-end" class="input" :placeholder="$t('gameJam.new.endPlaceholder')" v-model="jamEnd" />
                         </div>
                     </div>
                     <hr />
-                    <button class="btn" @click="showAdvancedOptions = true" :disabled="createButtonDisabled">Advanced options</button>
-                    <button class="btn btn-primary" @click="create()" :disabled="createButtonDisabled">Create game jam</button>
+                    <button class="btn" @click="showAdvancedOptions = true" :disabled="createButtonDisabled">{{ $t('gameJam.actions.advancedOptions') }}</button>
+                    <button class="btn btn-primary" @click="create()" :disabled="createButtonDisabled">{{ $t('gameJam.actions.createGameJam') }}</button>
                 </div>
                 <div v-else>
-                    <h2>Ask an administrator to create a game jam for you!</h2>
-                    <p>
-                        Itinerary is currently in beta and we need to limit the number of game jams created while we are finalizing the site. Nevertheless, we welcome early testers and adopters!
-                        <b>If you would like a game jam for yourself and your followers, please contact an administrator.</b>
-                    </p>
+                    <h2>{{ $t('gameJam.new.requestGameJamTitle') }}</h2>
+                    <p v-html="$t('gameJam.new.requestGameJamExplanation')"></p>
                     <br />
-                    <button @click="contact()" class="btn">Contact Looky1173 (administrator) on Scratch</button>
+                    <button @click="contact()" class="btn">{{ $t('gameJam.new.requestGameJamAction') }}</button>
                 </div>
             </div>
         </div>
@@ -108,7 +105,11 @@
                 }
 
                 this.createButtonDisabled = true;
-                let loadingNotification = await this.$notifications.notify({ content: { message: this.$t('notifications.gameJams.new.creatingGameJam'), loading: true }, disableTimeout: true, isCloseable: false });
+                let loadingNotification = await this.$notifications.notify({
+                    content: { message: this.$t('notifications.gameJams.new.creatingGameJam'), loading: true },
+                    disableTimeout: true,
+                    isCloseable: false,
+                });
 
                 let response = await fetch(`${process.env.backendURL}/api/jams`, {
                     method: 'PUT',

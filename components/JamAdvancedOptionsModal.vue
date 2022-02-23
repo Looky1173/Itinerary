@@ -1,10 +1,10 @@
 <template>
     <Modal :isOpen="isOpen" :hideSubHeader="true" @close="close()">
-        <template #header>Advanced options</template>
+        <template #header>{{ $t('gameJam.options.advancedOptionsTitle') }}</template>
         <template>
             <div class="modal-inner">
                 <input type="checkbox" id="enable-mystery" class="checkbox" v-model="options.enableMystery" />
-                <label for="enable-mystery" class="input-label checkbox">Hide the theme (the main body of text) of the game jam before it starts</label>
+                <label for="enable-mystery" class="input-label checkbox">{{ $t('gameJam.options.mysteryDescription') }}</label>
             </div>
         </template>
         <template #actions>

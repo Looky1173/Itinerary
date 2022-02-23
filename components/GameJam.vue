@@ -12,7 +12,7 @@
                 </p>
                 <hr />
                 <div class="dates">
-                    <h4 class="jam-status">{{ jamStatus }}</h4>
+                    <h4 class="jam-status">{{ getJamStatus }}</h4>
                     <Countdown class="countdown" :date="countdown" v-if="countdown" @on-finish="calculateDates()" />
                 </div>
             </div>
@@ -41,16 +41,21 @@
                 let today = new Date().toISOString();
 
                 if ((this.jamStart && new Date(this.jamStart).toISOString()) > today) {
-                    this.jamStatus = 'Starting in';
+                    this.jamStatus = -1;
                     this.countdown = new Date(this.jamStart);
                 } else if ((this.jamStart && new Date(this.jamStart).toISOString()) <= today && today < (this.jamEnd && new Date(this.jamEnd).toISOString())) {
-                    this.jamStatus = 'Ending in';
+                    this.jamStatus = 0;
                     this.countdown = new Date(this.jamEnd);
                     this.enableSubmissions = true;
                 } else {
-                    this.jamStatus = 'Ended';
+                    this.jamStatus = 1;
                     this.countdown = null;
                 }
+            },
+        },
+        computed: {
+            getJamStatus() {
+                return this.jamStatus === -1 ? this.$t('gameJam.status.upcoming') : this.jamStatus === 0 ? this.$t('gameJam.status.ongoing') : this.$t('gameJam.status.over');
             },
         },
         mounted() {

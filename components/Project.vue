@@ -5,7 +5,7 @@
         <div class="project-content">
             <div class="cover-image" :style="{ backgroundImage: `url(https://uploads.scratch.mit.edu/get_image/project/${data.project}_9000x7200.png)` }">
                 <button @click="handleUpvote()" :disabled="disableUpvoting" :class="`btn upvote ${upvoted ? 'upvoted' : ''}`">
-                    {{ upvoted ? 'Upvoted' : 'Upvote' }} <span class="pill" style="margin-left: 5px">{{ upvotes }}</span>
+                    {{ upvoted ? $t('project.upvoted') : $t('project.upvote') }} <span class="pill" style="margin-left: 5px">{{ upvotes }}</span>
                 </button>
                 <div class="blur">
                     <h3>{{ data.title }}</h3>
@@ -23,11 +23,11 @@
         </div>
         <div class="dropdowns">
             <Dropdown :reference="'more-options'" placement="right" :options="{ modifiers: [{ name: 'offset', options: { offset: [0, 10] } }] }" class="rounded">
-                <li @click="selectAsWinner()" v-if="isLoggedIn && canBeMadeWinner" class="dropdown-item hoverable">Select as winner</li>
-                <li @click="viewOnScratch()" class="dropdown-item hoverable">View project on Scratch</li>
+                <li @click="selectAsWinner()" v-if="isLoggedIn && canBeMadeWinner" class="dropdown-item hoverable">{{ $t('project.selectAsWinner') }}</li>
+                <li @click="viewOnScratch()" class="dropdown-item hoverable">{{ $t('project.viewOnScratch') }}</li>
                 <div v-if="hasRightsToProject" class="divider"></div>
-                <li @click="removeSubmission()" v-if="hasRightsToProject" class="dropdown-item hoverable danger">Remove submission</li>
-                <li @click="revokeWinnerStatus()" v-if="(isAdmin || isManager) && isWinner" class="dropdown-item hoverable danger">Revoke winner status</li>
+                <li @click="removeSubmission()" v-if="hasRightsToProject" class="dropdown-item hoverable danger">{{ $t('project.remove') }}</li>
+                <li @click="revokeWinnerStatus()" v-if="(isAdmin || isManager) && isWinner" class="dropdown-item hoverable danger">{{ $t('project.revokeWinnerStatus') }}</li>
             </Dropdown>
         </div>
     </div>
@@ -48,7 +48,7 @@
                 isWinner: this.data.selected || false,
                 isCommunityWinner: this.data.selectedByTheCommunity || false,
                 isLoggedIn: this.$auth.loggedIn(),
-                isAdmin:this.$auth.user()?.admin,
+                isAdmin: this.$auth.user()?.admin,
             };
         },
         props: ['data', 'jamEnd', 'isManager'],
@@ -72,7 +72,11 @@
                         `Are you sure you want to remove your submission "${this.data.title}"? The number of upvotes will be reset for this project to 0 as well!\n\n⚠ This operation cannot be undone! ⚠`,
                     )
                 ) {
-                    let loadingNotification = await this.$notifications.notify({ content: { message: this.$t('notifications.gameJams.projects.removingProject'), loading: true }, disableTimeout: true, isCloseable: false });
+                    let loadingNotification = await this.$notifications.notify({
+                        content: { message: this.$t('notifications.gameJams.projects.removingProject'), loading: true },
+                        disableTimeout: true,
+                        isCloseable: false,
+                    });
 
                     let res = await fetch(`${process.env.backendURL}/api/jams/${this.data.jam}/projects/${this.data.project}`, {
                         method: 'DELETE',
@@ -147,7 +151,11 @@
                 this.$emit('vote-cast');
             },
             async selectAsWinner() {
-                let loadingNotification = await this.$notifications.notify({ content: { message: this.$t('notifications.gameJams.projects.selectingAsWinner'), loading: true }, disableTimeout: true, isCloseable: false });
+                let loadingNotification = await this.$notifications.notify({
+                    content: { message: this.$t('notifications.gameJams.projects.selectingAsWinner'), loading: true },
+                    disableTimeout: true,
+                    isCloseable: false,
+                });
 
                 let response = await fetch(`${process.env.backendURL}/api/jams/${this.data.jam}/winners/`, {
                     method: 'PUT',
@@ -167,7 +175,11 @@
                 }
             },
             async revokeWinnerStatus() {
-                let loadingNotification = await this.$notifications.notify({ content: { message: this.$t('notifications.gameJams.projects.removingWinnerStatus'), loading: true }, disableTimeout: true, isCloseable: false });
+                let loadingNotification = await this.$notifications.notify({
+                    content: { message: this.$t('notifications.gameJams.projects.removingWinnerStatus'), loading: true },
+                    disableTimeout: true,
+                    isCloseable: false,
+                });
 
                 let response = await fetch(`${process.env.backendURL}/api/jams/${this.data.jam}/winners/`, {
                     method: 'DELETE',

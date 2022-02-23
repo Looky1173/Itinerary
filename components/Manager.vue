@@ -11,9 +11,9 @@
         </div>
         <div class="dropdowns">
             <Dropdown :reference="'more-options'" placement="right" :options="{ modifiers: [{ name: 'offset', options: { offset: [0, 10] } }] }" class="rounded">
-                <li @click="viewOnScratch()" class="dropdown-item hoverable">View user on Scratch</li>
+                <li @click="viewOnScratch()" class="dropdown-item hoverable">{{ $t('gameJam.managers.viewUserOnScratch') }}</li>
                 <div v-if="!ownUser" class="divider"></div>
-                <li v-if="!ownUser" @click="$emit('remove-manager', manager.name)" class="dropdown-item hoverable danger">Remove manager</li>
+                <li v-if="!ownUser" @click="$emit('remove-manager', manager.name)" class="dropdown-item hoverable danger">{{ $t('gameJam.managers.removeManager') }}</li>
             </Dropdown>
         </div>
     </div>
@@ -24,7 +24,7 @@
         data() {
             return {
                 backendURL: process.env.backendURL,
-                ownUser: this.$auth?.user()?.name == this.manager.name
+                ownUser: this.$auth?.user()?.name == this.manager.name,
             };
         },
         props: ['manager'],

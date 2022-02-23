@@ -1,10 +1,10 @@
 <template>
     <div>
-        <Loading v-if="$fetchState.pending" message="Loading contributors..." />
+        <Loading v-if="$fetchState.pending" :message="$t('loaders.loadingContributors')" />
         <div v-else-if="!$fetchState.pending && !$fetchState.error" class="contributors-container">
             <Contributor v-for="(contributor, index) of contributors" :key="index" :contributor="contributor" />
         </div>
-        <h3 v-else-if="$fetchState.error" id="contributors-error">Sorry, we couldn't fetch the list of contributors from GitHub. Please try again later!</h3>
+        <h3 v-else-if="$fetchState.error" id="contributors-error">{{ $t('credits.couldNotGetContributors') }}</h3>
     </div>
 </template>
 
@@ -12,14 +12,14 @@
     export default {
         data() {
             return {
-                contributors: []
+                contributors: [],
             };
         },
         async fetch() {
             this.contributors = await fetch('https://raw.githubusercontent.com/Looky1173/Itinerary-Contributors/main/.all-contributorsrc').then((res) => res.json());
             this.contributors = this.contributors.contributors;
         },
-        fetchOnServer: false
+        fetchOnServer: false,
     };
 </script>
 

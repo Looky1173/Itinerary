@@ -2,7 +2,7 @@
     <div class="container">
         <Navigation />
         <Banner>
-            <h1>Explore</h1>
+            <h1>{{ $t('navigation.explore') }}</h1>
 
             <template #subnav>
                 <div style="color: white; font-size: 600; margin: 1rem 0">
@@ -13,9 +13,9 @@
         <div class="content">
             <div class="card">
                 <div class="header">
-                    <h2>Explore game jams</h2>
+                    <h2>{{ $t('explore.exploreGameJams') }}</h2>
                     <div class="select-container sideways">
-                        <h4>Jams to show per page</h4>
+                        <h4>{{ $t('explore.gameJamsPerPage') }}</h4>
                         <select class="small" v-model="limit" @change="changedLimit()">
                             <option value="3">3</option>
                             <option value="5">5</option>
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <Pagination :page="currentPage" :totalPages="totalPages" auto="true" @previous="previousPage()" @next="nextPage()" />
-                <Loading v-if="loadingJams" message="Fetching game jams..." />
+                <Loading v-if="loadingJams" :message="$t('loaders.loadingGameJams')" />
                 <div v-if="!loadingJams" class="jams">
                     <GameJam v-for="jam in jams" :key="jam.slug" :data="jam" class="explore-jam" />
                 </div>
