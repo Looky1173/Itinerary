@@ -48,7 +48,8 @@
     */
     --text: var(--polar-night-dark);
     --text-muted: var(--polar-night-very-light);
-    --background: url('~assets/css/bg/light.svg');
+    --background: var(--snow-storm-light);
+    --background-image: url('~assets/css/bg/light.svg');
 
     --link: var(--frost-dark);
     --link-hovered: var(--frost);
@@ -111,7 +112,8 @@
     */
     --text: var(--snow-storm-light);
     --text-muted: var(--snow-storm-dark);
-    --background: url('~assets/css/bg/dark.svg');
+    --background: var(--polar-night-very-dark);
+    --background-image: url('~assets/css/bg/dark.svg');
 
     --link: var(--frost-very-dark);
     --link-hovered: var(--frost-dark);
@@ -172,7 +174,7 @@ html,
 body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 13px; 
-    background: var(--background);
+    background: var(--background-image);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
