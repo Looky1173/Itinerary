@@ -190,7 +190,7 @@ export default {
             end: 'End',
             endPlaceholder: 'When the game jam should end.',
             markdown: 'Markdown',
-            previewMarkdown: 'Preview',
+            markdownPreview: 'Preview',
             requestGameJamTitle: 'Ask an administrator to create a game jam for you!',
             requestGameJamExplanation:
                 'Itinerary is currently in beta and we need to limit the number of game jams created while we are finalizing the site. Nevertheless, we welcome early testers and adopters! <b>If you would like a game jam for yourself and your followers, please contact an administrator.</b>',
