@@ -33,7 +33,7 @@ export default {
         aboutTheSite: 'Foghlaim faoi Itinterary',
         forDevelopers: 'Cruthaitheoirí',
         affiliation: 'Ni dTáim Itinerary faoi Scratch, an Grúpa Scratch, no an Foundation Scratch.',
-        projectNature: 'Tá Itinerary an oscail faoinse tionscadal, le dáth gné ó <b>Ocular</b> (by <b>@Jeffalo</b>) agus an <b>Scratch website</b> (by the <b>Scratch Foundation</b>).',
+        projectNature: 'Tá Itinerary an oscail faoinse tionscadal, le dáth gné ó <b>Ocular</b> (by <a href="https://scratch.mit.edu/users/Jeffalo"><b>@Jeffalo</b></a>) agus an <b><a href="https://scratch.mit.edu">Scratch website</b></a> (by the <b>Scratch Foundation</b>).',
     },
     notifications: {
         global: {
