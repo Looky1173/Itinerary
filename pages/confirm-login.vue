@@ -5,14 +5,14 @@
             <div class="card">
                 <div class="login-details">
                     <img :src="`${backendURL}/api/user/${name}/picture`" width="50" height="50" class="confirm-pfp" />
-                    <h2>Login as {{ name }}</h2>
+                    <h2>{{ $t('auth.logInAs', { user: name }) }}</h2>
                 </div>
                 <br />
-                <p>Logging in will grant you access to more features.</p>
+                <p>{{ $t('auth.benefits') }}</p>
                 <br />
                 <div class="buttons">
-                    <button @click="confirm" :disabled="disabled" class="btn btn-primary btn-full" style="margin-right: 10px">Confirm</button>
-                    <button @click="deny" :disabled="disabled" class="btn">Deny</button>
+                    <button @click="confirm" :disabled="disabled" class="btn btn-primary btn-full" style="margin-right: 10px">{{ $t('global.confirm') }}</button>
+                    <button @click="deny" :disabled="disabled" class="btn">{{ $t('global.cancel') }}</button>
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
     export default {
         middleware: 'isAuthenticated',
         head: {
-            title: 'Confirm login | Itinerary'
+            title: 'Confirm login | Itinerary',
         },
         data() {
             return {
@@ -33,7 +33,7 @@
                 name: '',
                 token: '',
                 oneTimeToken: this.$route.query.token,
-                backendURL: process.env.backendURL
+                backendURL: process.env.backendURL,
             };
         },
         methods: {
@@ -45,13 +45,13 @@
                 cookies.set('itinerary-token', this.token, { expires: new Date(253402300000000) });
                 await this.$store.dispatch('auth/login', this.token);
                 this.$router.push({
-                    path: '/'
+                    path: '/',
                 });
             },
             async deny() {
                 this.disableButtons();
                 let res = await fetch(`${process.env.backendURL}/auth/remove/?token=${this.token}`, {
-                    method: 'POST'
+                    method: 'POST',
                 });
                 let data = await res.json();
                 console.log(data);
@@ -59,10 +59,10 @@
                     console.warn(data.error);
                 } else {
                     this.$router.push({
-                        path: '/'
+                        path: '/',
                     });
                 }
-            }
+            },
         },
         async asyncData({ route, redirect, error }) {
             let res = await fetch(`${process.env.backendURL}/auth/info/?token=${route.query.token}`);
@@ -72,7 +72,7 @@
             } else {
                 return { name: data.name, token: data.token };
             }
-        }
+        },
     };
 </script>
 

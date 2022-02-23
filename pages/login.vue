@@ -3,10 +3,10 @@
         <Navigation />
         <div class="content">
             <div class="card">
-                <h2>Login to Itinerary</h2>
-                <p>If you don't have an account yet, logging in will create one for you!</p>
+                <h2>{{ $t('auth.logInTitle') }}</h2>
+                <p>{{ $t('auth.logInInfo') }}</p>
                 <br />
-                <button @click="login" class="btn btn-primary btn-full">🐈 Login with Scratch</button>
+                <button @click="login" class="btn btn-primary btn-full">{{ $t('auth.logIn') }}</button>
             </div>
         </div>
         <Footer />

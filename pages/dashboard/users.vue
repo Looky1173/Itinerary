@@ -5,21 +5,21 @@
         <div class="content">
             <div class="card">
                 <div class="users-header">
-                    <h1>User list</h1>
-                    <button @click="refresh()" class="btn">Refresh</button>
+                    <h1>{{ $t('dashboard.userList') }}</h1>
+                    <button @click="refresh()" class="btn">{{ $t('dashboard.refreshUsers') }}</button>
                 </div>
                 <br />
                 <client-only>
-                    <Loading message="Fetching all users..." v-if="$fetchState.pending" />
+                    <Loading :message="$t('loaders.loadingUsers')" v-if="$fetchState.pending" />
                     <vue-good-table
                         v-if="!$fetchState.pending"
                         :columns="columns"
                         :rows="rows"
                         :pagination-options="{
-                            enabled: true
+                            enabled: true,
                         }"
                         :search-options="{
-                            enabled: true
+                            enabled: true,
                         }"
                         @on-row-click="onRowClick"
                         :theme="$colorMode.value == 'dark' ? 'nocturnal' : 'polar-bear'"
@@ -27,12 +27,22 @@
                 </client-only>
             </div>
             <div class="card">
-                <h1>Add user</h1>
-                <p>If the user entered below isn't registered on Itinerary, an account will be created for them.</p>
+                <h1>{{ $t('dashboard.addUserTitle') }}</h1>
+                <p>{{ $t('dashboard.addUserExplanation') }}</p>
                 <br />
-                <label for="username" class="input-label">Username</label>
-                <input type="text" id="username" class="input" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Username" spellcheck="false" v-model="username" />
-                <button @click="createUser()" class="btn btn-full" :disabled="isCreateButtonDisabled">Create user</button>
+                <label for="username" class="input-label">{{ $t('dashboard.addUserUsername') }}</label>
+                <input
+                    type="text"
+                    id="username"
+                    class="input"
+                    autocapitalize="off"
+                    autocomplete="off"
+                    autocorrect="off"
+                    :placeholder="$t('dashboard.addUserUsername')"
+                    spellcheck="false"
+                    v-model="username"
+                />
+                <button @click="createUser()" class="btn btn-full" :disabled="isCreateButtonDisabled">{{ $t('dashboard.addUserAction') }}</button>
             </div>
         </div>
         <Footer />
@@ -43,47 +53,47 @@
     export default {
         middleware: 'isAdmin',
         head: {
-            title: 'User list | Itinerary'
+            title: 'User list | Itinerary',
         },
         data() {
             return {
                 columns: [
                     {
-                        label: 'Internal ID',
-                        field: '_id'
+                        label: this.$t('dashboard.internalID'),
+                        field: '_id',
                     },
                     {
-                        label: 'Name',
-                        field: 'name'
+                        label: this.$t('dashboard.addUserUsername'),
+                        field: 'name',
                     },
                     {
-                        label: 'Is admin?',
+                        label: this.$t('dashboard.isAdmin'),
                         field: 'admin',
-                        type: 'boolean'
+                        type: 'boolean',
                     },
                     {
-                        label: 'Is banned?',
+                        label: this.$t('dashboard.isBanned'),
                         field: 'banned',
-                        type: 'boolean'
+                        type: 'boolean',
                     },
                     {
-                        label: 'Updated at',
-                        field: 'meta.updated'
+                        label: this.$t('meta.updatedAt'),
+                        field: 'meta.updated',
                     },
                     {
-                        label: 'Updated by',
-                        field: 'meta.updatedBy'
-                    }
+                        label: this.$t('meta.updatedBy'),
+                        field: 'meta.updatedBy',
+                    },
                 ],
                 rows: [],
                 showUsersEditorModal: false,
                 user: {
                     name: null,
                     banned: null,
-                    admin: null
+                    admin: null,
                 },
                 username: null,
-                isCreateButtonDisabled: false
+                isCreateButtonDisabled: false,
             };
         },
         methods: {
@@ -99,7 +109,7 @@
             },
             async createUser() {
                 if (!this.username) {
-                    alert('You must enter a username!');
+                    this.$notifications.notify({ type: 'error', content: { message: this.$t('notifications.dashboard.missingUsername') } });
                     return;
                 }
                 // Refresh user details
@@ -110,8 +120,8 @@
                         method: 'PUT',
                         headers: {
                             Authorization: this.$auth.token(),
-                            'Content-Type': 'application/json'
-                        }
+                            'Content-Type': 'application/json',
+                        },
                     });
                     let data = await res.json();
                     if (data) {
@@ -124,9 +134,9 @@
                         } else {
                             // Error
                             if (data.error.code !== 'unknown') {
-                                alert(data.error.detail);
+                                this.$notifications.notify({ type: 'error', content: { message: data.error.detail } });
                             } else {
-                                alert("An error has occured and we couldn't create the requested user! Please check the console for details.");
+                                this.$notifications.notify({ type: 'error', content: { message: this.$t('notifications.dashboard.couldNotCreateUser') } });
                             }
                             console.warn(data.error);
                             this.isCreateButtonDisabled = false;
@@ -134,17 +144,17 @@
                     }
                 } else {
                     this.$router.push({
-                        path: '/login'
+                        path: '/login',
                     });
                 }
-            }
+            },
         },
         async fetch() {
             let res = await fetch(`${process.env.backendURL}/api/users`, {
                 method: 'GET',
                 headers: {
-                    Authorization: this.$auth.token()
-                }
+                    Authorization: this.$auth.token(),
+                },
             });
             let data = await res.json();
             console.log(data);
@@ -153,7 +163,7 @@
             });
             this.rows = data;
         },
-        fetchOnServer: false
+        fetchOnServer: false,
     };
 </script>
 

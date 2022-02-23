@@ -1,8 +1,8 @@
 <template>
     <div class="pagination">
-        <button class="btn" :disabled="disablePrev" @click="$emit('previous')">Previous</button>
-        <h4>Page {{ page }} of {{ totalPages }}</h4>
-        <button class="btn" :disabled="disableNext" @click="$emit('next')">Next</button>
+        <button class="btn" :disabled="disablePrev" @click="$emit('previous')">{{ $t('explore.pagination.previous') }}</button>
+        <h4>{{ $t('explore.pagination.pageInfo', { page: page, total: totalPages }) }}</h4>
+        <button class="btn" :disabled="disableNext" @click="$emit('next')">{{ $t('explore.pagination.next') }}</button>
     </div>
 </template>
 

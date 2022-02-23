@@ -56,7 +56,7 @@ export default {
                 iso: 'en-GB',
                 file: 'en-GB.js',
                 name: 'English',
-                complete: false,
+                complete: true,
             },
             {
                 code: 'hu',

@@ -3,17 +3,12 @@
         <Navigation />
         <div class="content">
             <div class="card">
-                <h1>About Itinerary</h1>
-                <p>Itinerary is the successor of <a href="https://scratchtools.edu.eu.org">Scratch Tools</a>, a project that became unsustainable mainly due to its architecture.</p>
-                <br />
-                <h2>In depth</h2>
-                <p>
-                    <i>Coming soon...</i>
-                </p>
+                <h1>{{ $t('footer.aboutTheSite') }}</h1>
+                <p v-html="$t('credits.websiteDescription')"></p>
             </div>
             <div class="card">
-                <h1>Credits</h1>
-                <p>Thank you to everyone who contributed in any way to this project! <a href="https://allcontributors.org/docs/en/emoji-key">What do the emoji represent?</a></p>
+                <h1>{{ $t('credits.credits') }}</h1>
+                <p v-html="$t('credits.acknowledgement')"></p>
                 <br />
                 <Contributors />
             </div>
@@ -26,9 +21,9 @@
     export default {
         head() {
             return {
-                title: 'About | Itinerary'
+                title: 'About | Itinerary',
             };
-        }
+        },
     };
 </script>
 
