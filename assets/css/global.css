@@ -48,7 +48,7 @@
     */
     --text: var(--polar-night-dark);
     --text-muted: var(--polar-night-very-light);
-    --background: url('css/bg/light.svg');
+    --background: url('~css/bg/light.svg');
 
     --link: var(--frost-dark);
     --link-hovered: var(--frost);
@@ -111,7 +111,7 @@
     */
     --text: var(--snow-storm-light);
     --text-muted: var(--snow-storm-dark);
-    --background: url('css/bg/dark.svg');
+    --background: url('~css/bg/dark.svg');
 
     --link: var(--frost-very-dark);
     --link-hovered: var(--frost-dark);
