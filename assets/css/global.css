@@ -156,6 +156,7 @@
     --flame-orange-very-dark: #fd4000;
     
     --background: var(--snow-storm-light);
+    --background-image: var(--snow-storm-light);
 
     --header-background: var(--flame-orange-dark);
     --header-light-background: var(--flame-orange-light);
