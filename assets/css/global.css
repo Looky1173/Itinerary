@@ -113,7 +113,7 @@
     --text: var(--snow-storm-light);
     --text-muted: var(--snow-storm-dark);
     --background: var(--polar-night-very-dark);
-    --background-image: url('~assets/css/bg/dark.svg');
+    --background-image: url('~assets/css/bg/udark.svg');
 
     --link: var(--frost-very-dark);
     --link-hovered: var(--frost-dark);
