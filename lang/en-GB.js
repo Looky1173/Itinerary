@@ -33,7 +33,7 @@ export default {
         aboutTheSite: 'About Itinerary',
         forDevelopers: 'For Developers',
         affiliation: 'Itinerary is not affiliated with Scratch, the Scratch Team, or the Scratch Foundation.',
-        projectNature: 'Itinerary is an open source project, with styling aspects inspired by <b>Ocular</b> (by <b>@Jeffalo</b>) and the <b>Scratch website</b> (by the <b>Scratch Foundation</b>).',
+        projectNature: 'Itinerary is an open source project, with styling aspects inspired by <b>Ocular</b> (by <a href="https://scratch.mit.edu/users/Jeffalo"><b>@Jeffalo</b></a>) and the <a href="https://scratch.mit.edu"><b>Scratch website</b></a> (by the <b>Scratch Foundation</b>).',
     },
     notifications: {
         global: {
