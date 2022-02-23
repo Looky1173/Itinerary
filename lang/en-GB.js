@@ -111,7 +111,7 @@ export default {
     },
     credits: {
         credits: 'Credits',
-        acknowledgement: 'Thank you to everyone who contributed in any way to this project! <a href="https://allcontributors.org/docs/en/emoji-key">What do the emoji represent?</a>',
+        acknowledgement: 'Thank you to everyone who contributed in any way to this project! <a href="https://allcontributors.org/docs/en/emoji-key">What do the emojis represent?</a>',
         couldNotGetContributors: "Sorry, we couldn't fetch the list of contributors from GitHub. Please try again later!",
         websiteDescription: 'Itinerary is the successor of <a href="https://scratchtools.edu.eu.org">Scratch Tools</a>, a project that became unsustainable mainly due to its architecture.',
     },
