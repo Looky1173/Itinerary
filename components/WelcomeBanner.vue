@@ -65,7 +65,7 @@
         background-size: 20rem;
         background-repeat: no-repeat;
         background-position: 95%;
-        background-image: url('/img/Itinerary.png');
+        background-image: url('/img/Itinerary.avif');
     }
 
     .banner-content {
