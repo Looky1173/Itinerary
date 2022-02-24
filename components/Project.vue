@@ -38,7 +38,7 @@
         data() {
             return {
                 backgroundImage: null,
-                images: ['/img/backgrounds/blue-watercolour.jpg', '/img/backgrounds/green-watercolour.jpg', '/img/backgrounds/red-watercolour.jpg', '/img/backgrounds/yellow-watercolour.jpg'],
+                images: ['/img/backgrounds/blue-watercolour.avif', '/img/backgrounds/green-watercolour.avif', '/img/backgrounds/red-watercolour.avif', '/img/backgrounds/yellow-watercolour.avif'],
                 backendURL: process.env.backendURL,
                 hasRightsToProject: this.$auth?.user()?.name != null ? this.data.username === this.$auth?.user()?.name || this.$auth?.user()?.admin || this.isManager : false,
                 disableUpvoting: true,

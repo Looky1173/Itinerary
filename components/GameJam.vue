@@ -25,7 +25,7 @@
         data() {
             return {
                 backgroundImage: null,
-                images: ['/img/backgrounds/blue-watercolour.jpg', '/img/backgrounds/green-watercolour.jpg', '/img/backgrounds/red-watercolour.jpg', '/img/backgrounds/yellow-watercolour.jpg'],
+                images: ['/img/backgrounds/blue-watercolour.avif', '/img/backgrounds/green-watercolour.avif', '/img/backgrounds/red-watercolour.avif', '/img/backgrounds/yellow-watercolour.avif'],
                 jamStatus: null,
                 countdown: null,
                 jamStart: this.data?.dates?.start,
