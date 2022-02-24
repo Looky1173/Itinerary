@@ -21,7 +21,7 @@ export default {
     css: ['~/assets/css/global.css'],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-    plugins: ['~/plugins/auth.js', '~/plugins/notifications.js', { src: '~/plugins/vue-good-table', ssr: false }],
+    plugins: ['~/plugins/auth.js', '~/plugins/notifications.js', { src: '~/plugins/vue-good-table', ssr: false }, { src: '~/plugins/vue-carbon-badge.js' }],
 
     env: {
         backendURL: process.env.BACKEND_URL || 'http://localhost:8081',

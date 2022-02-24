@@ -50,6 +50,7 @@
                 </option>
             </select>
         </div>
+        <CarbonBadge :dark="$colorMode.value == 'dark' ? true : false"></CarbonBadge>
         <div class="disclaimer">
             <p>{{ $t('footer.affiliation') }}</p>
             <p v-html="$t('footer.projectNature')"></p>
