@@ -49,6 +49,7 @@
     --text: var(--polar-night-dark);
     --text-muted: var(--polar-night-very-light);
     --background: var(--snow-storm-light);
+    --background-image: url('~assets/css/bg/light.svg');
 
     --link: var(--frost-dark);
     --link-hovered: var(--frost);
@@ -112,6 +113,7 @@
     --text: var(--snow-storm-light);
     --text-muted: var(--snow-storm-dark);
     --background: var(--polar-night-very-dark);
+    --background-image: url('~assets/css/bg/udark.svg');
 
     --link: var(--frost-very-dark);
     --link-hovered: var(--frost-dark);
@@ -152,6 +154,9 @@
     --flame-orange: #ff7400;
     --flame-orange-dark: #ff5a00;
     --flame-orange-very-dark: #fd4000;
+    
+    --background: var(--snow-storm-light);
+    --background-image: var(--snow-storm-light);
 
     --header-background: var(--flame-orange-dark);
     --header-light-background: var(--flame-orange-light);
@@ -169,8 +174,11 @@
 html,
 body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 13px;
-    background-color: var(--background);
+    font-size: 13px; 
+    background: var(--background-image);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
     color: var(--text);
     padding: 0;
     margin: 0;

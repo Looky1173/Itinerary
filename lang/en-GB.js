@@ -36,7 +36,7 @@ export default {
         aboutTheSite: 'About Itinerary',
         forDevelopers: 'For Developers',
         affiliation: 'Itinerary is not affiliated with Scratch, the Scratch Team, or the Scratch Foundation.',
-        projectNature: 'Itinerary is an open source project, with styling aspects inspired by <b>Ocular</b> (by <b>@Jeffalo</b>) and the <b>Scratch website</b> (by the <b>Scratch Foundation</b>).',
+        projectNature: 'Itinerary is an open source project, with styling aspects inspired by <b>Ocular</b> (by <a href="https://scratch.mit.edu/users/Jeffalo"><b>@Jeffalo</b></a>) and the <a href="https://scratch.mit.edu"><b>Scratch website</b></a> (by the <b>Scratch Foundation</b>).',
     },
     notifications: {
         global: {
@@ -111,7 +111,7 @@ export default {
     },
     credits: {
         credits: 'Credits',
-        acknowledgement: 'Thank you to everyone who contributed in any way to this project! <a href="https://allcontributors.org/docs/en/emoji-key">What do the emoji represent?</a>',
+        acknowledgement: 'Thank you to everyone who contributed in any way to this project! <a href="https://allcontributors.org/docs/en/emoji-key">What do the emojis represent?</a>',
         couldNotGetContributors: "Sorry, we couldn't fetch the list of contributors from GitHub. Please try again later!",
         websiteDescription: 'Itinerary is the successor of <a href="https://scratchtools.edu.eu.org">Scratch Tools</a>, a project that became unsustainable mainly due to its architecture.',
     },
