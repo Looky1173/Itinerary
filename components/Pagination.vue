@@ -1,8 +1,8 @@
 <template>
     <div class="pagination">
-        <button class="btn" :disabled="disablePrev" @click="$emit('previous')">{{ $t('explore.pagination.previous') }}</button>
-        <h4>{{ $t('explore.pagination.pageInfo', { page: page, total: totalPages }) }}</h4>
-        <button class="btn" :disabled="disableNext" @click="$emit('next')">{{ $t('explore.pagination.next') }}</button>
+        <button class="btn" :disabled="!this.loading ? disablePrev : true" @click="$emit('previous')">{{ $t('explore.pagination.previous') }}</button>
+        <h4>{{ $t('explore.pagination.pageInfo', { page: page, total: totalPages === null ? '-' : totalPages }) }}</h4>
+        <button class="btn" :disabled="!this.loading ? disableNext : true" @click="$emit('next')">{{ $t('explore.pagination.next') }}</button>
     </div>
 </template>
 
@@ -11,7 +11,7 @@
         data() {
             return {};
         },
-        props: ['previousDisabled', 'nextDisabled', 'page', 'totalPages', 'auto'],
+        props: ['previousDisabled', 'nextDisabled', 'page', 'totalPages', 'auto', 'loading'],
         computed: {
             disablePrev: function () {
                 return this.auto ? this.page == 1 : this.previousDisabled;

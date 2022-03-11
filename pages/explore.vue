@@ -24,12 +24,12 @@
                         </select>
                     </div>
                 </div>
-                <Pagination :page="currentPage" :totalPages="totalPages" auto="true" @previous="previousPage()" @next="nextPage()" />
+                <Pagination :page="currentPage" :totalPages="totalPages" auto="true" @previous="previousPage()" @next="nextPage()" :loading="loadingJams" />
                 <Loading v-if="loadingJams" :message="$t('loaders.loadingGameJams')" />
                 <div v-if="!loadingJams" class="jams">
                     <GameJam v-for="jam in jams" :key="jam.slug" :data="jam" class="explore-jam" />
                 </div>
-                <Pagination :page="currentPage" :totalPages="totalPages" auto="true" @previous="previousPage()" @next="nextPage()" />
+                <Pagination :page="currentPage" :totalPages="totalPages" auto="true" @previous="previousPage()" @next="nextPage()" :loading="loadingJams" />
             </div>
         </div>
         <Footer />
@@ -89,6 +89,11 @@
                 this.fetchJams(this.currentPage);
             },
             updateQueryParams() {
+                let totalAvailablePages = Math.ceil(this.totalJams / this.limit);
+                if (totalAvailablePages < this.currentPage) {
+                    this.currentPage = totalAvailablePages;
+                }
+
                 this.$router.push({ path: this.$route.path, query: { page: this.currentPage, limit: this.limit } });
             },
         },
