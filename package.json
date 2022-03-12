@@ -22,7 +22,6 @@
 		"hooper": "^0.3.4",
 		"js-cookie": "^2.2.1",
 		"nuxt": "^2.15.3",
-		"vue-carbonbadge": "^1.1.1",
 		"vue-good-table": "^2.21.10"
 	},
 	"devDependencies": {

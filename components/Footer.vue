@@ -52,8 +52,8 @@
                     {{ locale.name }} - ({{ locale.iso }}) {{ locale.complete ? '' : '[TRANSLATION INCOMPLETE]' }}
                 </option>
             </select>
+            <CarbonBadge style="margin-top: 2rem" />
         </div>
-        <CarbonBadge :class="[carbonBadgeTheme ? 'wcb-d' : '', 'carbonbadge']"></CarbonBadge>
         <div class="disclaimer">
             <p>{{ $t('footer.affiliation') }}</p>
             <p v-html="$t('footer.projectNature')"></p>
@@ -69,11 +69,6 @@
                 themeNames: ['System', 'Light mode', 'Dark mode', 'Flame'],
                 selectedLanguage: '',
             };
-        },
-        computed: {
-            carbonBadgeTheme(){
-                return this.$colorMode.value == 'dark' ? true : false
-            }
         },
         created() {
             this.selectedLanguage = this.$i18n.locale;
