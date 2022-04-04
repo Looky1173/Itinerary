@@ -40,7 +40,7 @@ export default {
     },
     notifications: {
         global: {
-            fillInRequiredFields: 'Please fill in the required fields!',
+            fillInRequiredFields: 'Please fill in the required inputs!',
             invalidURL: 'The URL entered is invalid!',
         },
         admin: {
