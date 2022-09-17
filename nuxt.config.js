@@ -72,6 +72,13 @@ export default {
                 name: 'Gaeilge',
                 complete: false,
             },
+            {
+                code: 'cs',
+                iso: 'cs-CZ',
+                file: 'cs-CZ.js',
+                name: 'Čeština',
+                complete: true,
+            }
         ],
         lazy: true,
         langDir: 'lang/',
