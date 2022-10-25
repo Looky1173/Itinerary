@@ -25,7 +25,7 @@
                     <a href="https://github.com/Looky1173/Itinerary-Contributors" rel="noopener noreferrer" target="_blank">GitHub (Itinerary-Contributors)</a>
                 </li>
                 <li>
-                    <a href="https://counter.dev/dashboard.html?user=Looky1173&token=ZvfxKM4Qde0emaqs" rel="noopener noreferrer" target="_blank">Analytics</a>
+                    <a href="https://counter.dev/dashboard.html?user=Looky1173&token=YCQjrlG9ImA%3D" rel="noopener noreferrer" target="_blank">Analytics</a>
                 </li>
                 <li>
                     <a href="https://scratch.mit.edu/users/SuperScratcher_1234/#comments" rel="noopener noreferrer" target="_blank">Feedback</a>
