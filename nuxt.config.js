@@ -10,8 +10,13 @@ export default {
             meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { hid: 'description', name: 'description', content: '' }, ...i18nHead.meta],
             link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }, ...i18nHead.link],
             script: [
-                {
+                /*{
                     src: '/js/counterAnalytics.js',
+                },*/
+                {
+                    src: 'https://cdn.counter.dev/script.js',
+                    'data-id': 'ba0fade3-2043-4627-92c0-b8e6f6ea8a69',
+                    'data-utcoffset': '1',
                 },
             ],
         };
