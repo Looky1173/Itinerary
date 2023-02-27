@@ -83,6 +83,13 @@ export default {
                 file: 'cs-CZ.js',
                 name: 'Čeština',
                 complete: true,
+            },
+            {
+                code: 'de',
+                iso: 'de-DE',
+                file: 'de-DE.js',
+                name: 'Deutsch',
+                complete: true,
             }
         ],
         lazy: true,
